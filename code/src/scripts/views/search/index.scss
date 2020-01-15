@@ -1,0 +1,24 @@
+.am-navbar-light .am-navbar-title {
+    color: #999999;
+    border-radius: .5rem;
+    background-color: #fff;
+}
+.result{
+    border: 2px dashed yellowgreen;
+    .title{
+        font-size: .3rem;
+        font-weight: 900;
+        color: #FF6666;
+
+    }
+    .d_title{
+        font-weight: 700;
+    }
+    .miaoshu{
+        color: #FF3399;
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+    }
+}

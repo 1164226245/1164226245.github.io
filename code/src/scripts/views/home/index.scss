@@ -1,0 +1,300 @@
+
+ .am-navbar-light .am-navbar-title {
+    color: #999999;
+    border-radius: .5rem;
+    background-color: #fff;
+}
+.h-main {
+    width: 100%;
+    background: rgb(166, 3, 0);
+    .large_activity {
+        background-color: seashell;
+        padding-top: .05rem;
+        padding-bottom: .05rem;
+        .max_activity{
+                display: block;
+                height: 1.89rem;
+                overflow: hidden;
+                border-radius: .05rem;
+                a {
+                        display: block;
+                        height: 1.89rem;
+                        overflow: hidden;
+                        border-radius: .05rem;
+                        background-color: skyblue;
+                         img {
+                                border-radius: .05rem;
+                                width: 100%;
+                                height: 100%;
+                            }
+                    }
+            }
+        .activity_min_group{
+            overflow: hidden;
+         display: flex;
+        justify-content: space-between;
+         flex-wrap: wrap;
+         .activity_min{
+            float: left;
+                border-radius: .05rem;
+                margin-top: .03rem;
+                img{
+                    width: 3.4rem;
+        height: 1rem;
+             border-radius: .05rem;
+                }
+         }
+        }
+    
+    }
+    //小球 s
+    .nav{
+            padding-top: .1rem;
+                background: #fff;
+                border-radius: .05rem .05rem 0 0;
+                .nav_ul{
+                        padding: .05rem .1rem .08rem .06rem;
+                        display: flex;
+                        box-sizing: border-box;
+                        justify-content: space-between;
+                        overflow: hidden;
+                        flex-wrap: wrap;
+                        li{
+                                margin-left: .15rem;
+                                margin-right: .15rem;
+                                span{
+                                        display: block;
+                                        width: 100%;
+                                        font-size: .12rem;
+                                        font-family: PingFangSC-Regular;
+                                        font-weight: 400;
+                                        color: #333;
+                                        line-height: .16rem;
+                                        text-align: center;
+                                    }
+                            }
+                    }
+        }
+    //小球  e
+    //通告 s
+    .topline{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        .toplinelogo{
+            width: 1.18rem;
+            height: .30rem;
+            margin: -.04rem .12rem  0;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        // 竖向轮播图 s
+        .noticecarouser{
+            display: flex;
+            width: 5.0rem;
+            justify-content: space-around;
+            .v-item{
+                color:black;
+                height: 36px;
+                line-height: 36px;
+                padding-left: 10px;
+                //  display: flex;
+                //  justify-content: space-around;
+                // box-sizing: border-box;
+                // align-content: center;
+                // padding: .1rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical;
+                .iconright{
+                    line-height: .7rem;
+                }
+                span{
+                    border-radius: .7rem;
+                    background: linear-gradient(90deg,#ff9676 0,#ff7913 100%);
+                    display: inline-block;
+                    color: #fff;
+                    height: .34rem;
+                    line-height: .34rem;
+                    min-width: .48rem;
+                    font-size: .2rem;
+                    font-weight: 500;
+                    padding: 0 .05rem;
+                }
+              
+            }
+        }
+        //竖向轮播图  e
+    }
+    //通告  e
+    //天猫年货节  s
+    .main_module_layout{
+        padding: 0 .1rem;
+    background: center center no-repeat;
+    background-size: 100% auto;
+}
+    //天猫年货节   e
+    //品牌热卖s
+    .main_module_layout {
+        div{
+            .brand_product{
+                // height: 5.6rem;
+                height: 4.8rem;
+                padding: .12rem .12rem 0;
+                background: #fff;
+                border-radius: .05rem;
+                .title_group {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: .05rem;
+                    .title {
+                        height: .21rem;
+                        display: flex;
+                        align-items: center;
+                        h3 {
+                            height: .2rem;
+                            font-size: .2rem;
+                            font-family: PingFangSC-Medium;
+                            font-weight: 500;
+                            color: #333;
+                            line-height: .2rem;
+                            margin-right: .05rem;
+                        }
+                        p {
+                            height: .34rem;
+                            background: linear-gradient(168deg,#4d4d4d 0,#202020 100%);
+                            border-radius: .1rem 0;
+                            font-size: .2rem;
+                            color: #ffb91d;
+                            line-height: .14rem;
+                            padding: 0 .04rem;
+                            display: flex;
+                            align-items: center;
+                            text-align: center;
+                        }
+                    }
+                    .more {
+                        font-size: .12rem;
+                        color: #333;
+                        line-height: .17rem;
+                        a{
+                            font-size: .2rem;
+                            color: #333;
+                        }
+                        i {
+                            font-size: .12rem;
+                            margin-left: .1rem;
+                        }
+                    }
+                }
+                .brand_product_lists {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    .brand_product_list {
+                        width: 1.48rem;
+                        height: 2.0rem;
+                        background: linear-gradient(180deg,#fff 0,#f3e5e9 100%);
+                        border-radius: .04rem;
+                        margin-top: .1rem;
+                        overflow: hidden;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: .04rem;
+                        }
+                    }
+                }
+            }
+        }
+       
+    }
+  
+    //品牌热卖  e
+    //首页列表  s
+    .indexlist{
+        padding: 0 .1rem;
+        background: center center no-repeat;
+        background-size: 100% auto;
+        // height: 5rem;
+        .find_product_info{
+            margin: .1rem auto 0;
+            width: 1.07rem;
+            height: .21rem;
+            font-size: .25rem;
+            font-family: PingFangSC-Medium;
+            font-weight: 500;
+            color: #333;
+            line-height: .21rem;
+            background: url(https://cmsstatic.ffquan.cn/wap_new/home/images/find_product_bg.png?v=2020-01-04) center no-repeat;
+            background-size: 1.07rem .06rem;
+
+        }
+        .indexul{
+            // display: flex;
+            // justify-content: space-around;
+            float: left;
+            background: rgb(166, 3, 0);
+            li{
+                margin-top: .1rem;
+                border-radius: .05rem;
+                background: #fff;
+                overflow: hidden;
+                width: 3.0rem;
+                margin-left: .15rem;
+                margin-right: .15rem;
+                float: left;
+                img{
+                    width: 3.0rem;
+                    height: 3.0rem;
+                }
+                .titlename{
+                    .product_title{
+                        font-size: .12rem;
+                        font-weight: 400;
+                        color: #333;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        align-items: center;
+                        line-height: .2rem;
+                        padding-right: .1rem;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        margin-bottom: .05rem;
+                    }
+                   
+                }
+                .product_info{
+                    // display: flex;
+                    font-size: .12rem;
+                    font-weight: 400;
+                    .price{
+                        .price_num{
+                            font-size: .19rem;
+                            font-weight: 500;
+                            color: #FF2B22;
+                        }
+                        .RMB{
+                            font-size:.19rem;
+                            font-weight: 500;
+                            color: #FF2B22;
+                        }
+                        
+                    }
+                   .salse{
+                       color: black;
+                   }
+                }
+            }
+        }
+    }
+
+    //首页列表 e
+
+}
+
+

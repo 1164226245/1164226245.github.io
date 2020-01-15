@@ -1,0 +1,37 @@
+ @import "common.scss";   //文件名后缀可以省略
+@import "animate.css";
+@import "./fonts/iconfont.css"; //引入阿里字体图标样式
+ //引入ui库文件
+@import "antd-mobile.css";
+* {
+    touch-action: pan-y;
+}
+body, #root .app{
+    width: 100%;
+    //  overflow: hidden;
+}
+
+.move-in{
+    animation:bounceInLeft 1.2s;
+}
+.move2{
+    animation: bounceOutUp 1.2s;
+}
+.move-out{
+    animation: zoomOutDown  1.3s;
+}
+.move-search{
+    animation: fadeInRightBig 1.6s;
+}
+.move-mine1{
+    animation: bounce 1.6s;
+}
+.move-mine2{
+    animation: bounce 2.6s;
+}
+.move-mine3{
+    animation: bounce 3.6s;
+}
+.move-shop{
+    animation:  flipOutY  1.6s;
+}

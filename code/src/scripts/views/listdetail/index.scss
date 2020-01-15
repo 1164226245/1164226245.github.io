@@ -1,0 +1,90 @@
+.detailbox{
+    img{
+        width: 100vw;
+        display: block;
+    }
+    .shoppingcar{
+        .shop_cart{
+            left: 15px;
+            top: 15px;
+            position: absolute;
+            font-size: .4rem;
+            color: burlywood;
+        }
+        width: 50px;
+        height: 50px;
+        position: fixed;
+        top: 50px;
+        right: 10px;
+        background-color: #999;
+        border-radius: 50%;
+       
+    }
+    .goods_activity{
+        // height: 3.5rem;
+        border-bottom: solid 1px #F5F5F5;
+        position: relative;
+        z-index: 1;
+        zoom: 1;
+        img{
+            // float: left;
+            // margin-left: .8rem;
+            width: 3rem;
+            height: .5rem;
+            margin-right: .8rem;
+        }
+    }
+    .headtitle{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       
+    }
+    .title{
+        float: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        border: 1px solid red;
+    }
+    .pricediv{
+        display: flex;
+        .jiage{
+            flex: 1;
+            justify-content: space-around;
+            font-size: .4rem;
+            display: block;
+            color: brown;
+            b{
+                font-weight: 500;
+                font-size: .3rem;
+            }
+        }
+        .yuanjia{
+            flex: 1;
+        }
+        .price{
+            flex: 1;
+        }
+    }
+    .labelTwo{
+        border: 1px solid red;
+        border-radius: .1rem;
+    }
+    .goodsprice{
+        .title{
+            font-size: .3rem;
+            font-weight: 500;
+            color: brown;
+            float: left;
+        }
+        .desc{
+            font-size: .4rem;
+            // line-height: 1.4rem;
+            // padding: .5rem 0 1.4rem;
+            color: #999;
+        }
+    }
+
+   
+}

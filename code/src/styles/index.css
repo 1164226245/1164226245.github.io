@@ -1,0 +1,21 @@
+@import "common.scss";   
+@import "animate.css";
+
+*{
+    padding: 0%;
+    margin: 0;
+}
+body,html{
+     font-size: 34px;   
+    color: aqua;
+    background-color: blueviolet;
+}
+ #app{
+    font-size: 34px;  
+    background-color: rgb(240, 86, 15);
+    color: black;
+}
+#app h2{
+    font-size: 34px;  
+    color: aqua;
+}
