@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/home/main",
+    "pages/mv/main",
+    "pages/music/main",
+    "pages/mine/main",
+    "pages/video/main",
+    "pages/audio/main",
+
+
+    "pages/counter/main",
+    "pages/detail/main",
+    "pages/order/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "听",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#515151",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#d81e06",
+    "borderStyle": "black",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/home/main",
+        "iconPath": "static/images/index.png",
+        "selectedIconPath": "static/images/index-on.png"
+      },
+      {
+        "text": "看",
+        "pagePath": "pages/mv/main",
+        "iconPath": "static/images/mv.png",
+        "selectedIconPath": "static/images/mv-on.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/mine/main",
+        "iconPath": "static/images/mine.png",
+        "selectedIconPath": "static/images/mine-on.png"
+      }
+  
+    ],
+    "items": [
+      {
+        "text": "首页",
+        "pagePath": "pages/home/main",
+        "iconPath": "static/images/home.png",
+        "selectedIconPath": "static/images/home-on.png"
+      },
+      {
+        "text": "看",
+        "pagePath": "pages/mv/main",
+        "iconPath": "static/images/mv.png",
+        "selectedIconPath": "static/images/mv-on.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/mine/main",
+        "iconPath": "static/images/mine.png",
+        "selectedIconPath": "static/images/mine-on.png"
+      }
+   
+    ],
+    "position": "bottom"
+  }
+}
