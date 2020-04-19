@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BUG类型页</title>
+    <%- include common%>
+</head>
+
+<body>
+    <div>
+        <%- include('head',{title:'buglist'})%>
+        <div class="container-fluid">
+            <div class="row">
+                <h3>请根据个人情况记录BUG</h3>
+                <%  result.forEach((item,index)=>{ %>
+                <div class="col-md-3 col-lg-3  col-ls-3">
+                    <a href="/comment/index?mid=<%-item.id %>">
+                        <div class="thumbnail">
+                            <!-- 图片 -->
+                            <img src="<%- item.images.large%>" alt="" style="width: 100%;height: 200px;">
+                            <!-- 说明 -->
+                            <div class="caption">
+                                <!-- 将每个bug类型的id传带到评论页面 -->
+                                <h4 class="text-primary"><%- item.title%></h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <%  }) %>
+            </div>
+        </div>
+    </div> 
+    <%- include foot%>
+</body>
+<script>
+
+    function toSearch() {
+        location.href = "/buglist?keyword=" + $("#keyword").val();
+    }
+</script>
+
+</html>

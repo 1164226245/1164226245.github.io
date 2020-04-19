@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <blog-title txt="第一个组件">
+
+        </blog-title>
+        <blog-title txt="第二个复用组件">
+
+        </blog-title>
+        <!-- <div class="blog-post">
+                 <h3>{{title}}</h3>
+                <div v-html="content"></div>
+        </div> -->
+        
+        <!-- 遍历绑定 多个组件 -->
+        <blog-title  v-for="post in posts"  :key="post.id" :txt="post.title">
+
+        </blog-title>
+    </div>
+
+
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    Vue.component('blog-title', {
+        props: ['txt'],
+        template: '<h3>{{txt}}</h3>'
+        // template:` <div class="blog-post">
+        //          <h3>{{title}}</h3>
+        //         <div v-html="content">{{txt.content}}</div>
+        // </div>`
+    })
+    const app = new Vue({
+        data: {
+            title: "组件的学习",
+            posts: [
+                { id: 1, title: 'My journey with Vue' },
+                { id: 2, title: 'Blogging with Vue' },
+                { id: 3, title: 'Why Vue is so fun' }
+            ]
+        },
+        mounted() {
+            document.getElementsByTagName("title")[0].innerHTML = this.title;
+        }
+    }).$mount("#app");
+
+
+
+</script>
+
+</html>

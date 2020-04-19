@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .op{
+            width: 80px;
+            height: 80px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <parent my-name="胡育林">
+
+        </parent>
+        <my-foot></my-foot>
+    </div>
+    <!-- 父组件 -->
+
+
+    <!-- 父组件模板 -->
+    <template id="parent">
+        <div>
+            <h2 ref="one">这是父组件的 {{myName}}</h2>
+
+            <!-- 子组件   静态-->
+            <my-demo prop-a="静态信息 子组件" :prop-b="1" prop-c="hyl"></my-demo>
+
+            <!-- 子组件  动态传递 -->
+            <my-demo prop-a="动态信息 子组件demo" :prop-b="!!1" :prop-c="msg" :prop-d="888"></my-demo>
+            <p>
+                <input type="text" v-model="msg" placeholder="修改父组件的msg..">
+            </p>
+            <button @click="city='菲律宾'">搬家</button>
+            <button @click="changechildone">子组件childone里面count++</button>
+            <!-- 控制子组件的显示隐藏 -->
+            <button @click="show=!show">{{show?'显示':'隐藏'}}</button>
+           <childone
+            ref="child" one="1" idx="444" :msg="msg" 
+            :city="city"
+            :area="area"
+            :address="address"
+            :num="num"
+            :show="show"
+
+            >
+
+           </childone>
+
+
+        </div>
+    </template>
+    <template id="demo">
+        <div>
+            <h3> 这是子组件demo的count---{{count}}</h3>
+            <h3> demo--propA是{{propA}} ---propB是{{propB}}--propC是{{propC}}--propD是{{propD}} </h3>
+        </div>
+    </template>
+    <!-- 子组件 -->
+    <template id="childone">
+            <div>
+               <h3>childone子组件的count ---{{count}}</h3>
+               <h3>props静态值==={{one}}=={{idx}}=={{msg}}</h3>
+               <h3>父组件传递的地址==={{city}}=={{area}}=={{address}}</h3>
+               <h3>子组件的mynum--{{mynum}}</h3>
+               <h3>子组件的word--{{word}}</h3>
+               <p v-show="show" class="op">
+                    父组件parent来控制显隐
+               </p>
+            </div>
+    </template>
+</body>
+<script src="../../js/vue.js"></script>
+<script type="text/x-template" id="foot">
+    <footer>
+        <div>
+            尾部组件
+        </div>
+    </footer>
+</script>
+<script>
+
+    //头部组件
+    Vue.component("my-foot", {
+        template: "#foot"
+    });
+    // 子组件
+    Vue.component("my-demo", {
+        props: {
+            propA: String,
+            propB: [Number, Boolean],
+            propC: {
+                type: String,
+                default: "胡育林",
+                required: true,
+            },
+            propD: {
+
+                type: Number,
+                default: 1999
+            }
+
+        },
+        data() {
+            return {
+                count: 111,
+            }
+        },
+        template: "#demo"
+
+    })
+    //父组件
+    Vue.component("parent", {
+        data() {
+            return {
+                show: true,
+                msg: "父组件data里面的msg",
+                city: "武汉",
+                area: "洪山区",
+                address: "五环天地",
+                num: 100
+
+            }
+        },
+        methods: {
+            //父组件的方法里面通过函数changechildone里面的$refs指向子组件child改变子组件的count值
+            changechildone() {
+                console.log(this.$refs);
+                this.$refs.child.countAdd();
+                this.$refs.child.get();//弹框
+                this.$refs.child.word="熬夜写"
+            }
+        },
+        mounted() {
+            console.log(this.$refs);
+            this.$refs.one.style.color = "red"
+        },
+        props: {
+            myName: {
+                type: String
+            }
+        },
+
+        template: "#parent",
+        //局部注册 子组件childone
+        components: {
+            'childone': {
+                data() {
+                    return {
+                        count: 1888,
+                        mynum: this.num * 5,  //父组件的num
+                        word: "好好写vue"
+                    }
+                },
+                methods:{
+                    countAdd(){
+                        this.count+=10
+                    },
+
+                    get(){
+                        alert("弹框..")
+                    }
+                },
+
+                //接收父组件的props
+                props:["one","show","idx","city","area","city","address","msg","num"],
+                template: "#childone"
+            }
+        }
+    })
+    const app = new Vue({
+        data: {
+            title: "组件之间的通信"
+        },
+        mounted() {
+            document.getElementsByTagName("title")[0].innerHTML = this.title
+        }
+    }).$mount("#app");
+</script>
+
+</html

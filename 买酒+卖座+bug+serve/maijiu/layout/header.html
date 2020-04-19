@@ -1,0 +1,71 @@
+<html><div class="w1210">
+    <div class="logo-info">
+        <a  href="./index.html" class="logo">
+            <img src="http://www.mjwimg.com/images/system/config/mall/mall_logo_0.jpg">
+        </a>
+        <!-- logo右侧小广告 _start -->
+        <a href="javascript:void(0)" class="logo-right">
+            <img src="http://www.mjwimg.com/images/system/config/mall_top_ad/mall_logo_right_da_image_0.gif">
+        </a>
+        <!-- logo右侧小广告 _end -->
+    </div>
+    <div class="search  SZY-SEARCH-BOX">
+        <form class="search-form SZY-SEARCH-BOX-FORM" method="get" action="./listSearch.html">
+            <div class="search-info">
+                <div class="search-type-box">
+                    <ul class="search-type">
+                        <li class="search-li curr" num="0">宝贝</li>
+                        <li class="search-li" num="1">店铺</li>
+                    </ul>
+                    <i></i>
+                </div>
+                <div class="search-box">
+                    <div class="search-box-con">
+                        <input type="text" class="keyword search-box-input SZY-SEARCH-BOX-KEYWORD" name="keyword" tabindex="9" autocomplete="off" data-searchwords="" placeholder="部分美酒及城市支持闪送服务" value="">
+                    </div>
+                </div>
+                <input type="button" id="btn_search_box_submit" value="搜索" class="button bg-color btn_search_box_submit SZY-SEARCH-BOX-SUBMIT">
+            </div>
+            <!---热门搜索热搜词显示--->
+            <div class="search-results hide SZY-SEARCH-BOX-HELPER">
+                <ul class="history-results SZY-SEARCH-RECORDS">
+                    <li class="title">
+                        <span>最近搜索</span>
+                        <a href="javascript:void(0);" class="clear-history clear">
+                            <i></i> 清空
+                        </a>
+                    </li>
+                </ul>
+                <ul class="rec-results SZY-HOT-SEARCH">
+                    <li class="title">
+                        <span>正在热搜中</span>
+                        <i class="close"></i>
+                    </li>
+                    <li><a target="_blank" href="./listSearch.html?keyword=买酒闪送" title="买酒闪送">买酒闪送</a></li>
+                </ul>
+            </div>
+        </form>
+        <ul class="hot-query SZY-DEFAULT-SEARCH">
+            <li class="first"><a  href="./listSearch.html?keyword=五粮液" title="五粮液">五粮液</a></li>
+            <li><a  href="./listSearch.html?keyword=茅台" title="茅台">茅台</a></li>
+            <li><a href="./listSearch.html?keyword=剑南春" title="剑南春">剑南春</a></li>
+            <li><a href="./listSearch.html?keyword=葡萄酒" title="葡萄酒">葡萄酒</a></li>
+            <li><a  href="./listSearch.html?keyword=红酒" title="红酒">红酒</a></li>
+            <li><a href="./listSearch.html?keyword=洋酒" title="洋酒">洋酒</a></li>
+            <li><a href="./listSearch.html?keyword=啤酒" title="啤酒">啤酒</a></li>
+            <li><a href="./listSearch.html?keyword=老酒" title="老酒">老酒</a></li>
+        </ul>
+    </div>
+    <!-- 搜索框右侧小广告 _start -->
+    <div class="header-right">
+        <a href="javascript:void(0)" title="">
+            <img src="http://www.mjwimg.com/images/system/config/mall_top_ad/mall_search_right_da_image_0.jpg">
+        </a>
+    </div>
+    <!-- 搜索框右侧小广告 _end -->
+</div>
+<script>
+    $("#btn_search_box_submit").click(function() {
+        window.location.href = "./listSearch.html?keyword=" + $(".search-box input[name='keyword']").val();
+    });
+</script>

@@ -1,0 +1,53 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand hidden-sm" href="/" >个人bug管理系统</a>
+        </div>
+        <div class="navbar-collapse collapse in" role="navigation" aria-expanded="true" >
+        <ul class="nav navbar-nav" id="ullist">
+            <li class="<%- title=='home'?'hidden-sm hidden-md active':'hidden-sm hidden-md' %>" ><a href="/" >首页</a></li>
+            <li data-code="4000"  class="<%- title=='login'?'active':'' %>" > <a class="reddot" href="/login" >登录</a></li>
+            <li  data-code="4000" class="<%- title=='register'?'active':'' %>" > <a class="reddot" href="/register" >注册</a></li>
+            <li data-code="3000" class="<%- title=='buglist'?'active':'' %>" > <a class="reddot" href="/buglist" >BUG类型主页</a></li>
+            <li data-code="3000" class="<%- title=='changepwd'?'active':'' %>" > <a class="reddot" href="/changepwd"  >修改密码</a></li>
+          
+            <li data-code="3000" > <a class="reddot" href="/logout" >退出</a></li>
+        </ul>
+        </div>
+    </div>
+    </div>
+    <script>
+        //前端发起ajax请求拿到session
+         $.ajax({
+            url:"/checksession",
+            type:"GET",
+            // dataType:"json",
+            // data:{
+            //     id:1910
+            // },
+            // headers:{
+                
+            // },
+            success(res){
+                // console.log(res);
+                var lis = $("#ullist").find("li");
+                lis.each((index,item)=>{
+                    if(index!==0){
+                        if($(item).attr("data-code")==res.code){
+                            $(item).show();
+                        }else{
+                            $(item).hide();
+                        }
+                    }
+                })
+            }
+        })
+
+
+    </script>

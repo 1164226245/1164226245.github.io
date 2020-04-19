@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>当前BUG的记录详情</title>
+    <%- include common %>
+</head>
+<body>
+        <div>
+                <%- include('head',{title:'buglist'})%>
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- bug内容 s -->
+                        <div class="col-md-6 col-lg-6  col-ls-6">
+                            <h3 class="text-danger"> <%-userInfo.username %>信息详情</h3>
+                            <div class="thumbnail">
+                                <!-- 图片 -->
+                                <img src="<%- buglist.images.large%>" alt="" style="width: 100%;height: 200px;">
+                                <!-- 说明 -->
+                                <div class="caption">
+                                        <hr class="text-warning">
+                                        <p class="text-info">用户名: <%- userInfo.username%></p>
+                                        <p class="text-info">用户编号: <%- userInfo.uid%></p>
+                                        <p class="text-info">手机号: <%-userInfo.mobile%></p>
+
+                                    <button type="button" class="btn btn-danger" onclick="history.go(-1);">返回</button>
+                                </div>
+        
+                            </div>
+                        </div>
+                        <!-- bug内容  e -->
+        
+                        <!-- 提交内容  s -->
+                        <div class="col-md-6 col-lg-6  col-ls-6">
+                            <h3 class="text-info"><%-buglist.title %>--最新一条BUG</h3>
+                            <!-- 当前提交的bug 不需要拿全部集合 s-->
+                            <div class="well">
+                                <div class="" style="border: 2px dashed red; margin-top: 8px;">
+                                    <h4 class="text-warning">评论人: <%- item.uname %> </h4>
+                                    <h4 class="text-muted">评论时间: <%- dateFormat(item.time)%> </h4>
+                                    <h3 class="text-success"> 标题:<%- item.title %></h3>
+                                    <h5 class="text-danger"> 内容:<%- item.content %></h5>
+                                </div>
+                                  <!-- moment(item.time).format('yyyy-MM-dd hh:mm:ss')  -->
+                             <!-- 当前提交的bug 不需要拿全部集合  e-->
+                            </div>
+                        </div>
+                        <!-- 提交内容  e -->
+                    </div>
+                </div>
+            </div>
+            <!-- 引入公共尾部 -->
+            <%- include foot%>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BUG详细记录页面</title>
+    <%- include common%>
+</head>
+
+<body>
+    <div>
+        <%- include('head',{title:'movie'})%>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-6 col-lg-6  col-ls-6">
+                    <h3>BUG类型</h3>
+                    <div class="thumbnail">
+                        <!-- 图片 -->
+                        <img src="<%- result.images.large%>" alt="" style="width: 100%;height: 200px;">
+                        <div class="caption">
+                            <!-- 将每个bug类型的id传带到评论页面 -->
+                            <h4 class="text-primary"><%- result.title%></h4>
+                        </div>
+                        <!-- 说明 -->
+                        <div class="caption">
+                            <button type="button" class="btn btn-danger" onclick="history.go(-1);">返回</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6  col-ls-6">
+                    <h3>BUG详细记录</h3>
+                    <form action="/comment/submit?mid=<%- result.id %>" method="POST">
+                        <div class="form-group">
+                            <label for="title">标题:</label>
+                            <input type="title" class="form-control" id="title" name="title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content">请上传详细内容或文件</label>
+                            <textarea name="content" id="content" cols="15" rows="15" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交BUG</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include foot%>
+</body>
+<script>
+      window.onload = function () {
+        $(".xheIframeArea").css(({ "height": "245px" }))
+      }
+    //xheIframeArea
+    // 初始化页面位置实现文本编辑框  http://i1.itc.cn/20150417/2ea2_acf1e278_0f6e_945b_f135_733fe23ccab4_1.jpg
+     $(pageInit);
+        //  comment.ejs  /comment/index
+        function pageInit(){
+            $.extend(XHEDITOR.settings,{shortcuts:{"ctrl+enter":submitForm}});
+            // $("#ele").xheditor();
+            $("#content").xheditor({   //初始化 富文件编辑框
+                html5Upload:false,
+                upMultiple:"1",
+
+                upLinkRrl:"upload.html",
+                upLinkExt:"zip,rar,txt",
+
+                upImgUrl:"/comment/uploadImg",   // 图片上传的服务器  
+                upImgExt:"jpg,jpeg,gif,png",
+
+                upFlashUrl:"upload.php",
+                upFlashExt:"swf",
+
+                upMediaUrl:"upload.php",
+                upMediaExt:"wmv,avi,wma,mp3,mid"
+
+            });
+        };
+
+        function insertUpload(arrMsg){
+            console.log(arrMsg);
+            var i,msg;
+            for(var i=0;i<arrMsg.length;i++){
+                msg=arrMsg[i];
+                console.log(msg);
+                $("#uploadList").append('<option value="'+msg.id+'">'+msg.localname+'</option>')
+            }
+        };
+
+        function submitForm(){
+            $("#frmDemo").submit();
+        }
+
+</script>
+</html>

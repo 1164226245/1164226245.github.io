@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>买酒网-中国多快好省的白酒,红酒,洋酒,葡萄酒官方网站!</title>
+    <link rel="icon" type="image/x-icon" href="http://www.mjwimg.com/images/system/config/website/favicon_0.ico">
+    <link rel="shortcut icon" type="image/x-icon"
+        href="http://www.mjwimg.com/images/system/config/website/favicon_0.ico">
+
+    <link rel="stylesheet" href="assets/iconfont/iconfont.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/shop_index.css" />
+    <link rel="stylesheet" href="css/template.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/online.css" />
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/page.js"></script>
+    <script src="js/layer/layer.js"></script>
+</head>
+
+<body>
+    <div id="header-top" class="header-top"></div>
+    <div class="header">
+        <div class="w1210 clearfix">
+            <div class="logo-info">
+                <a href="index.html" class="logo">
+                    <img src="http://www.mjwimg.com/images/system/config/mall/mall_logo_0.jpg">
+                </a>
+            </div>
+            <div class="shop-info">
+                <div class="shop">
+                    <div class="shop-name ">
+                        <a href="javascript:void(0)" title="买酒网官方自营店">买酒网官方自营店</a>
+                    </div>
+                    <p>
+                        <img src="http://www.mjwimg.com/images/system/credit/2016/12/13/14816152418802.gif" title="钻石">
+                    </p>
+                </div>
+                <div class="shop-main">
+                    <div class="shop-score-box">
+                        <div class="shop-score-item">
+                            <div class="shop-score-title">描 述</div>
+                            <div class="score color">
+                                <span>5.00</span>
+                            </div>
+                        </div>
+                        <div class="shop-score-item">
+                            <div class="shop-score-title">服 务</div>
+                            <div class="score color">
+                                <span>5.00</span>
+                            </div>
+                        </div>
+                        <div class="shop-score-item">
+                            <div class="shop-score-title">发 货</div>
+                            <div class="score color">
+                                <span>5.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search">
+                <form class="search-form" method="get" name="" id="search-form" action="listSearch.html">
+                    <!-- <input type='hidden' name='type' id="searchtype" value=""> -->
+                    <div class="search-info">
+                        <div class="search-box">
+                            <div class="search-box-con">
+                                <input class="search-box-input" name="keyword" id="keyword" tabindex="9"
+                                    autocomplete="off" value=""
+                                    onfocus="if( this.value=='请输入关键词'){ this.value=''; }else{ this.value=this.value; }"
+                                    onblur="if(this.value=='')this.value='请输入关键词'" type="text">
+                            </div>
+                        </div>
+                        <input type="button" id="searchBtn" value="搜全站" class="button bg-color">
+                    </div>
+                    <input type="button" id="searchBtn2" value="搜本店" class="button button-spe">
+                </form>
+                <ul class="hot-query">
+                    <!-- 默认搜索词 -->
+                    <li class="first">
+                        <a href="listSearch.html?keyword=五粮液" title="五粮液">五粮液</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=茅台" title="茅台">茅台</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=剑南春" title="剑南春">剑南春</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=葡萄酒" title="葡萄酒">葡萄酒</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=红酒" title="红酒">红酒</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=洋酒" title="洋酒">洋酒</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=啤酒" title="啤酒">啤酒</a>
+                    </li>
+                    <li>
+                        <a href="listSearch.html?keyword=老酒" title="老酒">老酒</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="shop-menu">
+            <div class="shop-menu-box">
+                <ul class="shop-menu-left">
+                    <li>
+                        <a href="index.html" target="">首页</a>
+                    </li>
+                    <li class="all-category">
+                        <a href="listSearch.html" target="">
+                            全部分类
+                            <span class="arrow"></span>
+                        </a>
+                        <div class="all-category-coupon" style="display: none;">
+                            <!-- 获取店铺内商品分类 -->
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=0" target="_blank">全部商品 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=1" target="_blank">白酒 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=2" target="_blank">葡萄酒 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=3" target="_blank">洋酒 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=4" target="_blank">啤酒 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=6" target="_blank">保健酒 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    <a href="listSearch.html?type=8" target="_blank">赠品 &gt;</a>
+                                </dt>
+                                <dd>
+                                    <ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                    <!-- 获取店铺导航 -->
+                </ul>
+                <ul class="shop-menu-right">
+                    <li class="shop-nav">
+                        <a href="listSearch.html" target="_blank">买酒首选</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="layout" style="min-height: 400px;">
+        <!-- 内容 -->
+        <!-- 右侧客服 _start-->
+        <!-- 右侧客服_end -->
+        <div class="condition-screen w1210">
+            <div class="breadcrumb clearfix">
+                <a href="listSearch.html" class="index">全部结果</a>
+                <span class="crumbs-arrow">&gt;</span>
+                <span class="last"></span>
+            </div>
+            <div class="content-wrap category-wrap clearfix">
+                <div class="fl">
+                    <div class="store-category">
+                        <h3 class="left-title">店内分类</h3>
+                        <div class="left-content tree">
+                            <ul>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html" target="_self" title="全部商品" class="tree-first">全部商品</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html?type=1" target="_self" title="白酒" class="tree-first">白酒</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html?type=2" target="_self" title="葡萄酒" class="tree-first">葡萄酒</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html?type=3" target="_self" title="洋酒" class="tree-first">洋酒</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html?type=4" target="_self" title="啤酒" class="tree-first">啤酒</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html?type=6" target="_self" title="保健酒" class="tree-first">保健酒</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li class="parent_li">
+                                    <span>
+                                        <i class="icon-minus-sign"></i>
+                                    </span>
+                                    <a href="listSearch.html?type=8" target="_self" title="赠品" class="tree-first">赠品</a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="main fr">
+                    <div class="" id="filter">
+                        <!--排序-->
+                        <form method="GET" name="listform">
+                            <div class="fore1">
+                                <dl class="order">
+                                    <dd class="first curr" data-str="id" data-order="asc">
+                                        <a href="javascript:void(0);">
+                                            综合
+                                            <i class="iconfont icon-ASC"></i>
+                                        </a>
+                                    </dd>
+                                    <dd class="price" data-str="goodsprice" data-order="desc">
+                                        <a href="javascript:void(0);">
+                                            价格
+                                            <i class="iconfont icon-DESC"></i>
+                                        </a>
+                                    </dd>
+                                </dl>
+                                <div class="total" style="margin-right: 20px;">
+                                    共
+                                    <span class="color">0</span> 个商品
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--主体商品内容展示-->
+                    <form id="compareForm">
+                        <ul id="list-grid" class="list-grid clearfix">
+
+                        </ul>
+                        <div class="tip-box" style="display: none;">
+                            <!-- <img src="http://localhost/maijiu/images/noresult.png" class="tip-icon"> -->
+                            <img src="./images/noresult.png" class="tip-icon">
+                            <div class="tip-text">抱歉！没有搜索到您想要的结果……</div>
+                        </div>
+                        <div class="pull-right page-box">
+                            <div id="pagination" class="page" style="display: none;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar" class="right-sidebar-con"></div>
+    <div id="links" class="links-box w1210"></div>
+    <div id="footer" class="site-footer"></div>
+</body>
+<script>
+    $("#header-top").load("layout/header-top.html");
+    $("#sidebar").load("layout/sidebar.html");
+    $("#links").load("layout/links.html");
+    $("#footer").load("layout/footer.html");
+
+    var search = getUrlValue("keyword");
+    var type = getUrlValue("type");
+    var rank = "id";
+    var order = "asc";
+    var pagesize = 4;  //一个页面显示4个
+    var pageindex = 1;  //默认从多少开始
+
+    $("#keyword").val(search);
+
+    $(".condition-screen .breadcrumb span.last").html(search);
+
+    setPage();
+    //根据分页插件完成商品分页显示
+    //(pageindex-1)*shownum, shownum
+    function setPage() {
+        $.ajax({
+            type: "get",
+            url: "php/getgoodslistcount.php",
+            data: {
+                search: search,
+                // type: type
+            },
+            datatype: "json",
+            success: function (result) {
+                var item = eval('(' + result + ')');
+                let count = item["count"];
+                if (count == null) {
+                    $("#filter .total span").html(0);
+                } else {
+                    $("#filter .total span").html(count);
+                }
+                var p = new Page("#pagination", {
+                    count: count * 1,
+                    shownum: pagesize,
+                    showpage: 4,
+                    callBack: function (index) {
+                        pageindex = index;
+                        setGoodsInfoHtml();
+                    }
+                });
+
+                // var p=   new Page(
+                //     "#pagination",
+
+                //     {
+                //         count: count * 1,//数据库20条数据
+                //         shownum: pagesize,
+                //         showpage: 5,
+                //         a: function (pageindex) {
+                //             // getdata(key,orderkey,rank,(pageindex-1)*shownum, shownum);
+                //             setGoodsInfoHtml(rank = 'id', order = 'asc', search = getUrlValue("keyword"),pageindex,pagesize)
+
+                //         }
+                //     }
+
+                // );
+            }
+
+        });
+    }
+
+    
+    //将商品数据渲染到页面
+    function setGoodsInfoHtml() {
+        $.ajax({
+            type: "get",
+            url: "php/goodslist.php",
+            data: {
+                search: search,
+                // type: type,
+                rank: rank,
+                order: order,
+                pageindex: (pageindex-1)*pagesize,
+                pagesize: pagesize
+            },
+            datatype: "json",
+            success: function (result) {
+                var list = eval('(' + result + ')'); //JSON的字符串解析成JSON数据格式
+                var html = "";
+                list = list.data;
+                if (list.length > 0) {
+                    for (var i = 0; i < list.length; i++) {
+                        var last = (i + 1) % 4 == 0 ? "last" : "";  //每一行的最后一个
+                        html += '<li class="item ' + last + '"><div class="item-con"><div class="item-pic"><a href="goodsDetail.html?id=' + list[i].id + '" title="' + list[i].goodsname + '" target="_blank"> <img src = "' + list[i].goodsimg + '" alt = "" ></a> </div> <div class = "item-info" ><div class = "item-price" ><em class = "sale-price color" > ￥' + list[i].goodsprice + ' </em> </div> <div class = "item-name  " ><a href = "" target = "_blank" title = "' + list[i].goodsname + '" >' + list[i].goodsname + ' </a> </div> <div class = "item-con-info" ><div class = "fl" ><div class = "item-operate" ><a href = "javascript:void(0);"class = "operate-btn collet-btn  " ><i class = "iconfont" ></i> <span> 收藏 </span> </a> </div> </div> <div class = "fr" ><div class = "item-add-cart" ><a href = "javascript:void(0);" style ="background-image: url(http://www.maijiuwang.com/images/add-cart.jpg); background-size: 30px 30px;" data-goods-id = "' + list[i].id + '" data-goods-goodsname = "' + list[i].goodsname + '" data-goods-goodsprice = "' + list[i].goodsprice + '" data-goods-goodsimg = "' + list[i].goodsimg + '" class = "add-cart"title = "加入购物车" ></a></div></div></div> </div></div></li>';
+                    }
+                    $("#list-grid").html(html);
+                    $("#pagination").css("display", "");
+                    $("#compareForm .tip-box").css("display", "none");
+                } else {
+                    $("#compareForm .tip-box").css("display", "");
+                    $("#pagination").css("display", "none");
+                    $("#list-grid").html("");
+                }
+            }
+        });
+    }
+
+    //获取相应值  URL
+    function getUrlValue(key) {
+        var searchStr = window.location.search;
+        if (searchStr.indexOf(key) != -1) {
+            var strList = searchStr.split('?')[1].split('&');
+            for (var i = 0; i < strList.length; i++) {
+                var str = strList[i].split('=');
+                if (str[0] == key) {
+                    return decodeURIComponent(str[1]);
+                }
+            }
+        }
+        return "";
+    }
+    //搜索全站
+    $("#searchBtn").click(function() {
+        search = $("#keyword").val();
+        setPage();
+        $(".condition-screen .breadcrumb span.last").html(search);
+    });
+   //搜索本店
+    $("#searchBtn2").click(function () {
+        search = $("#keyword").val();
+        setPage();
+        $(".condition-screen .breadcrumb span.last").html(search);
+    });
+
+    document.οnkeydοwn = function (event) {
+        var e = event || window.event;
+        if (e && e.keyCode == 13) {
+            $("#searchBtn").click();
+        }
+    };
+
+    $("#filter dl.order dd").click(function() {  //价格  或者综合的升序降序
+        var dataStr = $(this).attr("data-str");
+        var dataOrder = $(this).attr("data-order");
+        //默认升序排列
+        $("#filter dl.order dd").removeClass("curr");
+        $(this).addClass("curr");
+        rank = dataStr;
+        if (dataOrder == "asc") {
+            order = "desc";
+            $(this).attr("data-order", "desc");
+            $(this).find("i")[0].className = "iconfont icon-DESC";
+        } else {
+            order = "asc";
+            $(this).attr("data-order", "asc");
+            $(this).find("i")[0].className = "iconfont icon-ASC";
+        }
+        setPage();
+    });
+    //去购物车  数量默认传一个
+    $("body").on('click', ".add-cart", function () {
+        var loginId = getCookie("loginId");
+        if (loginId) {
+            var goodsid = $(this).attr("data-goods-id");
+            var goodsname = $(this).attr("data-goods-goodsname");
+            var goodsprice = $(this).attr("data-goods-goodsprice");
+            var goodsimg = $(this).attr("data-goods-goodsimg");
+            $.ajax({
+                type: "get",
+                url: "php/gotomyshoppingcar.php",
+                data: {
+                    userid: loginId,
+                    goodsid: goodsid,
+                    goodsname: goodsname,
+                    goodsprice: goodsprice,
+                    goodsimg: goodsimg,
+                    goodsnum: 1,
+                },
+                success: function (result) {
+                    var obj = JSON.parse(result);
+                    if (obj.code == 1) {
+                        layer.msg("加入购物车成功");
+                        $("#header-top .header-box span.SZY-CART-COUNT").html(obj.sum);
+                        $("#quick-links ul li span.SZY-CART-COUNT").html(obj.sum);
+                    } else {
+                        layer.msg(obj.msg);
+                    }
+                }
+            });
+        } else {
+            setCookie("backUrl", window.location.href);
+            window.location.href = "login.html";
+        }
+    });
+</script>
+
+</html>

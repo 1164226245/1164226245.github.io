@@ -1,0 +1,140 @@
+<html>
+<div class="header-box">
+    <!-- 站点 -->
+    <!--站点 start-->
+    <div class="SZY-SUBSITE">
+    </div>
+    <!--站点 end-->
+    <!-- 登录信息 -->
+    <font id="login-info" class="login-info SZY-USER-NOT-LOGIN">
+        <a class="login color" href="./login.html" target="_top">请登录</a>
+        <a class="register" href="./register/mobile.html" target="_top">免费注册</a>
+    </font>
+    <font id="login-info2" class="login-info SZY-USER-ALREADY-LOGIN" style="display: none;">
+        <em>
+            <a href="javascript:void(0)" id="loginName" target="" class="color SZY-USER-NAME"></a>
+        </em>
+        <a href="javascript:void(0)" onclick="loginOut()">退出</a>
+    </font>
+    <span  id="blink" style=" font-size: 12px; color:red; font-weight: bold;line-height: 35px; margin-left: 20px;">首页二级导航或者我的商城进入列表页,列表页实现分页,搜索,排序,点击购物车进入购物车页面,购物车实现增删改,结算页实现地址联动,地址增删改</span>
+    <ul>
+        <li>
+            <a class="menu-hd home" href="./index.html" target="_top">
+                <i class="iconfont color"></i> 商城首页
+            </a>
+        </li>
+        <li class="menu-item">
+            <div class="menu">
+                <a class="menu-hd myinfo" href="./listSearch.html" target="_top">
+                    <i class="iconfont color"></i> 我的商城
+                    <b></b>
+                </a>
+                <div id="menu-2" class="menu-bd">
+                    <span class="menu-bd-mask"></span>
+                    <div class="menu-bd-panel">
+                        <a href="javascript:void(0)" target="">已买到的宝贝</a>
+                        <a href="javascript:void(0)" target="">我的地址管理</a>
+                        <a href="javascript:void(0)" target="">我收藏的宝贝</a>
+                        <a href="javascript:void(0)" target="">我收藏的店铺</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="menu-item cartbox">
+            <div class="menu">
+                <a class="menu-hd cart" href="./shoppingcar.html" target="_top">
+                    <i class="iconfont color"></i> 购物车
+                    <span class="SZY-CART-COUNT">0</span>
+                    <b></b>
+                </a>
+                <div id="menu-4" class="menu-bd cart-box-main">
+                    <span class="menu-bd-mask"></span>
+                    <div class="dropdown-layer">
+                        <div class="spacer"></div>
+                        <div class="dropdown-layer-con cartbox-goods-list">
+                            <!-- 正在加载 -->
+                            <div class="cart-type">
+                                <i class="cart-type-icon"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <a class="menu-hd" href="javascript:void(0)" target="">卖家中心</a>
+        </li>
+        <li class="menu-item">
+            <div class="menu">
+                <a class="menu-hd we-chat" href="javascript:;" target="_top">
+                    <i class="iconfont color"></i> 关注商城
+                    <b></b>
+                </a>
+                <div id="menu-5" class="menu-bd we-chat-qrcode">
+                    <span class="menu-bd-mask"></span>
+                    <a target="_top">
+                        <img src="http://www.mjwimg.com/images/system/config/mall/mall_wx_qrcode_0.jpg" alt="官方微信">
+                    </a>
+                    <p class="font-14">关注官方微信</p>
+                </div>
+            </div>
+        </li>
+        <li class="menu-item">
+            <div class="menu">
+                <a class="menu-hd mobile" href="javascript:;" target="_top">
+                    <i class="iconfont color"></i> 手机版
+                    <b></b>
+                </a>
+                <div id="menu-6" class="menu-bd qrcode">
+                    <span class="menu-bd-mask"></span>
+                    <a target="_top">
+                        <img src="http://images.68mall.com/26/system/config/mall/app_download_qrcode.png" alt="手机客户端">
+                    </a>
+                    <p>手机客户端</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<script>
+    var loginId = getCookie("loginId");
+    if (loginId) {
+        $("#loginName").html(getCookie("loginName"));
+        $("#login-info").css("display", "none");
+        $("#login-info2").css("display", "");
+
+        $.ajax({
+            type: "get",
+            url: "./php/getmyshoppingcarsnum.php",
+            data: {
+                userid: loginId
+            },
+            success: function (result) {
+                var obj = JSON.parse(result);
+                $("#header-top .header-box span.SZY-CART-COUNT").html(obj.sum = obj.sum == null ? 0 : obj.sum);
+                $("#quick-links ul li span.SZY-CART-COUNT").html(obj.sum = obj.sum == null ? 0 : obj.sum);
+            }
+        });
+    } else {
+        $("#login-info").css("display", "");
+        $("#login-info2").css("display", "none");
+    }
+
+    function loginOut() {
+        setCookie("loginId", "", -1);
+        setCookie("loginName", "", -1);
+        window.location.href = "login.html";
+    }
+    
+    function getRoundColor() {
+        var r = Math.round(Math.random() * 255);
+        var g = Math.round(Math.random() * 255);
+        var b = Math.round(Math.random() * 255);
+        return "#" + r.toString(16) + g.toString(16) + b.toString(16);
+
+    }
+    setInterval(function(){
+        document.getElementById("blink").style.color=getRoundColor();
+    },200)
+</script>

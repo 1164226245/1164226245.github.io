@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>node-- socket- 及时聊天室内</title>
+    <%- include common%>
+    <style>
+        .input1 {
+            width: 80%;
+            float: left;
+        }
+
+        #chatroom {
+            width: 100%;
+            border: 2px solid #344;
+          height: 200px;
+            overflow: auto;
+        }
+        #up{
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('head',{title:'chat'})%>
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <h4 class="text-danger">基于socket io 的简易聊天室</h4>
+                <h4 class="text-success">上线人数: <b id="count" class="text-danger"> 0</b></h4>
+                <div class="col-lg-4 col-ls-4 col-md-4">
+
+                </div>
+                <div class="col-lg-4  col-ls-4 col-md-4">
+                    <!-- 聊天室的框子  s-->
+                    <div id="chatroom">
+
+                    </div>
+                    <!-- 聊天室的框子  e-->
+                    <div style="margin-top:10px">
+                        <input type="title" class="form-control  input1" id="word" placeholder="请输入留言内容">
+                        <input type="button" class="btn btn-success" id="btn" value="留言">
+                    </div>
+
+                    <div id="box">
+                            <div id="op">
+                                <p class="bg-danger text-danger pull-center">尝试连接中....</p>
+                            </div>
+                            <div id="up">
+                                <input type="text" value="<%- username%>"  class="form-control input1" id="nickname" placeholder="请输入昵称">
+                                <input type="button" value="登录"  class="btn btn-primary" id="loginbtn" onclick="login()">
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="/socket.io.js">
+</script>
+<script>
+// ##  客户端  socket 
+// 1. 创建 客户端的 socket 套接字对象  
+// 2. 链接 服务器端的  socket 
+// 3. 发送消息给  服务器 
+// 4. 接收 来自服务器的 消息
+// 5. 监听  服务器 socket  关闭/报错 
+
+// 1. 创建 客户端的 socket 套接字对象  
+var  socketIo= null;
+
+// 2. 链接 服务器端的  socket 
+socketIo=io.connect("http://192.168.59.9:3000");
+
+console.log(socketIo);
+
+socketIo.on("connect",()=>{
+    console.log("连接socket服务器...成功..");
+    $("#op").hide();
+    $("#up").css("visibility","visible");
+})
+
+function login(){
+    console.log(nickname.value);
+    // 3. 发送消息给  服务器 
+    socketIo.emit("login",nickname.value);
+}
+
+//登录成功后  隐藏box
+
+socketIo.once("loginSuccess",()=>{
+    $("#box").hide();
+})
+
+//setOnLineCount
+//接收返回来的用户数目
+socketIo.on("setOnLineCount",(count)=>{
+    $("#count").html(count);
+})
+
+
+//展示消息的函数  
+function dispalyMsg(msg,color){
+    $("#chatroom")[0].innerHTML+=`<p style="color:${color}">${msg}</p> `;
+}
+//4.接收 来自服务器的 消息  提示给客户端有用户上线了
+socketIo.on("system",(nickname)=>{
+    var  date=new Date();
+    var hour=date.getHours();
+    hour=hour<10?"0"+hour:hour;
+    var min=date.getMinutes();
+    min=min<10?"0"+min:min;
+    dispalyMsg(`${hour}:${min} ----${nickname} 上线了`,"red");
+})
+
+
+//将消息发送给 后 清空
+function sendMsg(){
+    socketIo.emit("sendClientMsg",word.value);
+    word.value="";
+}
+btn.onclick=function(){
+    console.log(999)
+    sendMsg();
+}
+//按下键盘enter键值后发送消息
+document.onkeydown=function(e){
+    if(e.keycode==13){
+        sendMsg();
+    }
+}
+
+
+socketIo.on("getMsgfromServer",(nickname,msg)=>{
+    var  date=new Date();
+    var hour=date.getHours();
+    hour=hour<10?"0"+hour:hour;
+    var min=date.getMinutes();
+    min=min<10?"0"+min:min;
+    dispalyMsg(`${hour}:${min} ----${nickname}说:${msg}`,"green");
+})
+// 5. 监听  服务器 socket  关闭/报错 
+//disconnect
+socketIo.on("disconnect",()=>{
+    console.log("连接socket服务器...断开..");
+})
+
+
+
+
+
+
+</script>
+</html>

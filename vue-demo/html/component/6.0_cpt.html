@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+        <cpt :count="2222" msg="插槽的msg内容">
+            <p>插槽内容已经随机分发</p>
+        </cpt>
+
+        <!-- 第二个插槽 -->
+        <cpt>
+            <div>
+                <p>插槽内容随机分发</p>
+            </div>
+            <template v-solt="banner">
+                <p>这是轮播图的插槽</p>
+            </template>
+
+            <template v-solt="menu">
+                <p>这是菜单的插槽</p>
+            </template>
+        </cpt>
+    </div>
+
+    <template id="my-head">
+        <header>
+            <h3>{{title}}</h3>
+        </header>
+    </template>
+
+    <template id="cpt">
+        <div>
+            <h3>插槽组件--</h3>
+            <h3>slot-- {{count}}--{{msg}}</h3>
+            <div style="border: 2px solid red;">
+                <slot>
+                    这是solt插槽的默认值,如果没有匹配的数据,就会分发此内容显示
+                </slot>
+            </div>
+
+            <div style="border: 2px solid green;">
+                <slot name="bannner">这是一个具名插槽 为bannner提供服务</slot>
+            </div>
+
+            <div style="border: 2px solid pink;">
+                <slot name="menu">这是一个具名插槽, 为menu提供服务</slot>
+            </div>
+        </div>
+    </template>
+</body>
+<script src="../../js/vue.js"></script>
+<script>
+
+    const Head= Vue.extend({
+        template:'#my-head',
+        data(){
+            return {
+                title:"头部组件"
+            }
+        }
+    });
+    Vue.component("my-head",Head);
+
+    const cpt =Vue.extend({
+        template:"#cpt",
+       props:["count","msg"]
+    });
+    Vue.component("cpt",cpt);
+    const app =new Vue({
+        data:{
+            title:"vue的 组件插槽"
+        },
+        mounted(){
+            document.getElementsByTagName("title")[0].innerHTML=this.title
+        }
+    }).$mount("#app");
+</script>
+</html>

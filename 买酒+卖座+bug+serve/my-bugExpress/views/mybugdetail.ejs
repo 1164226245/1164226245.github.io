@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>该类型下的所有提交的bug</title>
+    <%- include common %>
+    <style>
+        p  img{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <%- include('head',{title:'buglist'})%>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- bug内容 s -->
+                <div class="col-md-6 col-lg-6  col-ls-6">
+                    <h3 class="text-danger">BUG详情-- <%-buglist.title %></h3>
+                    <div class="thumbnail">
+                        <!-- 图片 -->
+                        <img src="<%- buglist.images.large%>" alt="" style="width: 100%;height: 200px;">
+                        <!-- 说明 -->
+                        <div class="caption">
+                            <button type="button" class="btn btn-danger" onclick="history.go(-1);">返回</button>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- bug内容  e -->
+
+                <!-- 提交内容  s -->
+                <div class="col-md-6 col-lg-6  col-ls-6">
+                    <h3 class="text-info"><%-buglist.title %>--所有提交</h3>
+                    <div class="well">
+                            <%  comments.forEach((item,index)=>{  %>
+                        <div class="" style="border: 2px dashed red; margin-top: 8px;">
+                            <h3 class="text-success"> 标题:<%- item.title %></h3>
+                            <h4 class="text-warning">提交人: <%- item.uname %> </h4>
+                            <p class="text-danger"> 内容:<%- item.content %></p>
+                            <h4 class="text-muted">提交时间: <%- dateFormat(item.time) %> </h4>
+                            <!-- moment(item.time).format('yyyy-MM-dd hh:mm:ss')  -->
+                        </div>
+                        <%    }) %>
+                    </div>
+                </div>
+                <!-- 评论内容  e -->
+            </div>
+        </div>
+    </div>
+    <%- include foot%>
+</body>
+
+</html>

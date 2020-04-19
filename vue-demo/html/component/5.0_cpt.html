@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+     <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+    <style>
+        table {
+            border: 1px solid red;
+        }
+
+        td {
+            border: 1px solid indianred;
+        }
+
+        ul li {
+            list-style-type: none;
+            border: 1px solid red;
+        }
+        .fade-enter-active{
+            animation: fadeInRight 1.2s;
+
+        }
+        .fade-leave-active{
+            animation: fadeInLeft 1.2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+        <!-- 隐藏 -->
+        <div v-if="false">
+            <button @click="show=!show">{{show?'表格':'列表'}}</button>
+            <my-table v-show="show" :cars="cars">
+
+            </my-table>
+            <my-list v-show="!show" :cars="cars"></my-list>
+        </div>
+
+        <div>
+            <select v-model="currentCpt">
+                <option value="my-table">表格</option>
+                <option value="my-list">列表</option>
+            </select>
+        </div>
+        <transition mode="out-in" name="fade">
+            <!-- 失活的组件将保持缓存 -->
+            <keep-alive>
+                <component :is="currentCpt" :cars="cars"></component>
+            </keep-alive>
+        </transition>
+
+    </div>
+</body>
+
+<template id="myhead">
+    <header>
+        <h3>{{title}}</h3>
+    </header>
+</template>
+
+<template id="table">
+    <table>
+        <tr>
+            <td>序号</td>
+            <td>品牌</td>
+            <td>型号</td>
+            <td>颜色</td>
+        </tr>
+        <tr v-for="(car, key,index,) in cars" :key="key">
+            <td>
+                {{index+1}}
+            </td>
+            <td>{{car.brand}}</td>
+            <td>{{car.model}}</td>
+            <td>{{car.color}}</td>
+        </tr>
+    </table>
+</template>
+
+<template id="list">
+    <ul>
+        <li v-for="(car,key,index) in cars" :key="key">
+            <p>序号:{{index+1}}</p>
+            <p>品牌:{{car.brand}}</p>
+            <p>型号:{{car.model}}</p>
+            <p>颜色:{{car.color}}</p>
+        </li>
+    </ul>
+
+</template>
+<script src="../../js/vue.js"></script>
+<script>
+    var cars = {
+        car01: { brand: "Ford", model: "Mustang", color: "red" },
+        car02: { brand: "Fiat", model: "500", color: "white" },
+        car03: { brand: "Volvo", model: "XC90", color: "black" }
+    }
+    Vue.component("my-table", {
+        props: ["cars"],
+        template: "#table"
+    })
+
+    Vue.component("my-list", {
+        props: ["cars"],
+        template: "#list"
+    })
+
+    const Head = Vue.extend({
+        template: "#myhead",
+        data() {
+            return {
+                title: "头部组件"
+            }
+        }
+    });
+    Vue.component("my-head", Head);
+
+    const app = new Vue({
+        data: {
+            title: "组件之间动态切换",
+            cars,
+            show: true,
+            currentCpt: 'my-table'
+        }
+    }).$mount("#app")
+</script>
+
+</html>

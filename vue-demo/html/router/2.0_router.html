@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .router-link-exact-active, .router-link-active{
+            color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+        <div>
+            <router-link to="/home">首页</router-link>
+            <router-link to="/home/1910/info/huyulin?singernum=101&age=88#1211">胡育林</router-link>
+            <router-link :to="{name:'home',params:{idx:1908,username:'huyulin'},hash:'cpid',query:{singernum:102,age:26}}">huyulin</router-link>
+            <router-link to="/find/goodWeather/china-hubei-wuhan?time=1207">发现</router-link>
+            <router-link :to="{name:'news'}">新闻</router-link>
+            <router-link :to="{name:'users',params:{names:'kuku'}}">用户中心</router-link>
+            <router-link :to="{name:'admin'}">管理员</router-link>
+        </div>
+
+        <div>
+            <router-view>
+
+            </router-view>
+        </div>
+    </div>
+    <!-- 头部组件模板 -->
+    <template id="my-head">
+            <header>
+                <h3>{{title}}</h3>
+            </header>
+    </template>
+
+    <!-- 首页组件模板 -->
+    <template id="home">
+        <div>
+            <h3>home--首页</h3>
+            <h3>解析home的路由参数--</h3>
+            <h3>uid===={{$route.params.idx}}</h3>
+            <h3>username=={{$route.params.username}}</h3>
+            <h3>query 是查询参数  ?后面的</h3>
+            <h3>query年龄==={{$route.query.age}}岁</h3>
+            <h3>query编号---{{$route.query.singernum}}</h3>
+            <h3>路径path--{{$route.path}}</h3>
+            <h3>hash值-{{$route.hash}}</h3>
+            <button @click="gotonews">点击跳转news</button>
+        </div>
+    </template>
+    <!-- 发现页组件模板 -->
+    <template id="find">
+        <div>
+            <h3>
+                find--发现页
+            </h3>
+            <h3>解析find的路由参数</h3>
+            <h3>msg:{{$route.params.msg}}</h3>
+            <h3>address:{{$route.params.address}}</h3>
+            <h3>query里面的time:{{$route.query.time}}</h3>
+            <button @click="goback">返回上一页</button>
+        </div>
+    </template>
+    <!-- 新闻页组件模板 -->
+    <template id="news">
+        <div>
+            <h3>news--新闻页</h3>
+        </div>
+    </template>
+    <!-- 用户中心组件 模板 -->
+    <template id="users">
+        <div>
+          <h3>users--用户中心</h3>
+          <h3>users个人信息---{{$route.params.names}}</h3>
+        </div>
+    </template>
+</body>
+<script src="../../js/vue.js"></script>
+<script src="../../js/vue-router.min.js"></script>
+<script>
+const Head=Vue.extend({
+    template:"#my-head",
+    data(){
+        return {
+            title:"头部组件"
+        }
+    }
+});
+Vue.component("my-head",Head);
+
+const Home={
+    template:"#home",
+    mounted(){
+        console.log(this.$route)
+    },
+    methods:{
+        gotonews(){
+            //第一种跳转  news 新闻页  直接切路由路径
+            // router.push("/news");
+
+            //第二种传入对象  切路径
+           // router.push("{path:'/news'}");
+
+            //第三种  传入对象  根据name来切
+            // router.push({name:'news'});
+            // 第四种方法
+            this.$router.push({
+                name:'news',
+                query:{
+                    id:999
+                },
+                hash:'#1908'
+            })
+        }
+    }
+};
+
+const  News={template:"#news"};
+
+const  Find={
+    template:"#find",
+    methods:{
+        goback(){
+           // history.go(-1);  //返回上一级
+
+           // history.back();  //效果同上  ,返回上一级
+
+
+            // this.$router.go(-1);  //路由指向后返回
+
+           // this.$router.back();  //效果同history.back()   
+
+        //    router.go(-1);
+
+
+           router.back();
+
+
+
+        }
+    }
+};
+
+const Users={template:"#users"}
+
+const routes=[
+    {path:"/home/:idx/info/:username?",component:Home,name:'home'},
+
+    {path:"/news",component:News,name:'news'},
+
+    {path:"/find/:msg/:address",component:Find,name:'find'},
+
+    {path:"/users/:names",component:Users,name:"users"},
+    //管理员
+    {
+        path:"/admin",
+        component:{
+            template:"<h3>--管理员中心--</h3>"
+        },
+        name:'admin'
+    },
+
+    // 重定向的地址
+
+    {
+        path:"*",
+        redirect:"/news"
+    }
+];
+
+const  router=new VueRouter({
+    routes
+});
+
+    const app= new Vue({
+        data:{
+            title:"vue 路由 静态动态参数"
+        },
+        router,
+        watch:{
+            //监听路由对象里面的所有参数
+            '$route':function(to,from){
+
+                console.log(to);
+
+                console.log(from);
+            }
+
+        },
+        mouted(){
+            document.getElementsByTagName("title")[0].innerHTML=this.title
+        }
+    }).$mount("#app");
+</script>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+
+        <router-link :to="{name:'find'}">发现</router-link>
+        <router-link :to="{name:'news'}">新闻</router-link>
+        <router-link :to="{name:'users'}">用户</router-link>
+        <!-- 路由出口 -->
+        <router-view  style="border: 2px solid red; width: 80%;"></router-view>
+
+    </div>
+    <template id="my-head">
+        <div>
+            <h3>{{title}}</h3>
+        </div>
+    </template>
+    <!-- 发现组件 -->
+    <template id="find">
+        <div>
+            <h3>发现页面</h3>
+        </div>
+    </template>
+    <!-- news组件 -->
+    <template id="news">
+        <div>
+            <h3>新闻页面</h3>
+        </div>
+    </template>
+    <!-- 用户组件 -->
+    <template id="users">
+        <div>
+            <h3>用户页面</h3>
+        </div>
+    </template>
+    <!-- home组件 -->
+    <template id="home">
+        <div>
+            <h3>主页</h3>
+        </div>
+    </template>
+
+</body>
+<script src="../../js/vue.js"></script>
+<script src="../../js/vue-router.min.js"></script>
+<script>
+
+    const Head = Vue.extend({
+        template: "#my-head",
+        data() {
+            return {
+                title: "头部组件"
+            }
+        }
+    });
+
+    Vue.component("my-head", Head);
+
+    //定义路由选项
+    const Home = {
+        template: '#home'
+
+    }
+    const Find = {
+        template: "#find"
+    }
+
+    const News = {
+        template: "#news"
+    }
+    const Users = {
+        template: "#users"
+    }
+    //设置路由别名
+    const routes = [{
+        path: '/home',
+        component: Home,
+        name: 'home'
+    }, {
+        path: '/find',
+        component: Find,
+        name: 'find'
+    },
+    {
+        path: '/news',
+        component: News,
+        name: 'news'
+    },
+    {
+        path: '/users',
+        component: Users,
+        name: 'users'
+    },
+    //重定向到主页
+    {
+        path: "*",
+        redirect: { name: 'home' }
+    }
+    ]
+    //定义路由对象
+    const router = new VueRouter(
+        {
+            routes
+        }
+    )
+
+    //挂载
+    const app = new Vue({
+        data: {
+            title: "vue路由配置  路由参数"
+        },
+        router,
+        mounted() {
+            document.getElementsByTagName("title")[0].innerHTML = this.title;
+        }
+    }).$mount("#app");
+</script>
+
+</html>

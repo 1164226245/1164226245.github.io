@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>结算页面</title>
+    <link rel="icon" type="image/x-icon" href="http://www.mjwimg.com/images/system/config/website/favicon_0.ico">
+    <link rel="shortcut icon" type="image/x-icon"
+        href="http://www.mjwimg.com/images/system/config/website/favicon_0.ico">
+    <link rel="stylesheet" href="assets/iconfont/iconfont.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/register.css" />
+    <link rel="stylesheet" href="css/flow.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/jquery.model.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <style type="text/css">
+        .amap-info-content {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 39px 55px -75px 10px;
+            margin: -17px 10px;
+            padding: 10px 0;
+            line-height: 1.4;
+            /* overflow: auto; */
+            width: 320px;
+            height: 38px;
+        }
+
+        .amap-info-sharp {
+            height: 23px;
+            margin: 0 auto;
+            overflow: hidden;
+            top: -1px;
+            width: 30px;
+            background-image: url(http://webapi.amap.com/theme/v1.3/sharp.png);
+        }
+        .cart-progress {
+            margin-top: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg" class="bg" style="display: none;"></div>
+    <div id="header-top" class="header-top"></div>
+    <div class="header">
+        <div class="w990">
+            <div class="logo-info">
+                <a href="index.html" class="logo">
+                    <img src="http://www.mjwimg.com/images/system/config/mall/mall_logo_0.jpg">
+                </a>
+            </div>
+            <div class="cart-progress ">
+                <ul>
+                    <li class="finish finish-01">
+                        <i>1</i>
+                        <span>
+                            <a href="shoppingcar.html">我的购物车</a>
+                        </span>
+                        <b></b>
+                    </li>
+                    <li class="finish finish-02">
+                        <i>2</i>
+                        <span>确认订单</span>
+                        <b></b>
+                    </li>
+                    <li class="finish">
+                        <i>3</i>
+                        <span>付款</span>
+                        <b></b>
+                    </li>
+                    <li class="finish">
+                        <i>4</i>
+                        <span>支付成功</span>
+                        <b></b>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-bg">
+        <div class="content-main w990">
+            <div class="content-info">
+                <!-- 用户自定义信息 -->
+                <!-- 收货地址 -->
+                <div class="address-container border-line" id="addressinfo">
+                    <div id="user_address_list" class="main-content">
+                        <h2 class="title">地址选择</h2>
+                        <div class="address">
+                            <!-- 开始编辑收货地址 -->
+                            <div class="address-list clearfix" data-check-address="1">
+                            </div>
+                            <div class="addr-control">
+                                <a href="javascript:void(0)" class="addr-add" title="增加新地址">
+                                    <i>+</i>
+                                    <span>使用新地址</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 送货时间 -->
+                <div class="time-container border-line">
+                    <div class="main-content">
+                        <h2 class="title">
+                            送货时间
+                            <span>卖家因缺货等导致不能正常发货，可关闭订单，货款将按原路退回</span>
+                        </h2>
+                        <div class="delivery-time clearfix">
+                            <!-- 选中的送货时间 给下面的div增加class值"active" 也就是class="box active" _star-->
+                            <div class="box active">
+                                <label>
+                                    <input type="radio" data="" class="best_time" name="best_time" value="0" checked="">
+                                    <span>立即配送</span>
+                                </label>
+                            </div>
+                            <div class="box ">
+                                <label>
+                                    <input type="radio" data="" class="best_time" name="best_time" value="1">
+                                    <span>工作日/周末/假日均可</span>
+                                </label>
+                            </div>
+                            <div class="box ">
+                                <label>
+                                    <input type="radio" data="" class="best_time" name="best_time" value="2">
+                                    <span>仅周末送货</span>
+                                </label>
+                            </div>
+                            <div class="box ">
+                                <label>
+                                    <input type="radio" data="" class="best_time" name="best_time" value="3">
+                                    <span>仅工作日送货</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 所有店铺商品清单 -->
+                <div class="goods-list border-line">
+                    <div class="main-content">
+                        <h2 class="title">商品清单</h2>
+                        <div class="order-goods">
+                            <!-- 根据店铺对商品进行拆单 每个table是一个店铺的商品 _star-->
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="order-goods-list">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" id="goods-content" class="goods-content">
+                                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="goods-postage">
+                                            <div class="postage">
+                                                <div class="postage-out-box">
+                                                    <div class="postage-box postage-box-1 active" id="postage-box-0-1"
+                                                        data-shop-id="1" data-id="0" data-name="普通快递" data-price="10"
+                                                        data-price-format="￥10.00">
+                                                        <label>普通快递</label>
+                                                    </div>
+                                                </div>
+                                                <!-- -->
+                                                <div class="postage-out-box">
+                                                    <div class="postage-box postage-box-1 " id="postage-box-1-1"
+                                                        data-shop-id="1" data-id="1" data-name="上门自提" data-price="0"
+                                                        data-price-format="￥0.00">
+                                                        <label>上门自提</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pickup-address">
+                                                <label>
+                                                    自提点：
+                                                    <span id="pickup_name"></span>
+                                                    <a class="pickup-edit" data-shop-id="1">修改</a>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="goods-annex">
+                                            <div class="memo">
+                                                <span>买家留言：</span>
+                                                <div class="buyer-msg">
+                                                    <textarea class="text postscript" data-shop-id="1"
+                                                        placeholder="选填，可填写您与卖家达成一致的要求"></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td colspan="3" class="goods-bill" id="shop_count_1">
+                                            <div class="bill">
+                                                <p class="order-pay-vice">
+                                                </p>
+                                                <div class="order-pay second-color">
+                                                    店铺合计（含运费）：<strong class="second-color SZY-SHOP-ORDER-AMOUNT-1"
+                                                        data-shop-id="1">￥0.00</strong>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 根据店铺对商品进行拆单 每个table是一个店铺的商品 _end-->
+                        </div>
+                    </div>
+                </div>
+                <!-- 平台红包 -->
+                <!-- 积分支付 -->
+                <!-- 发票信息 -->
+                <!-- 支付方式 -->
+                <div id="pay_type" class="pay-type border-line">
+                    <div class="main-content">
+                        <h2 class="title">支付方式</h2>
+                        <div class="pay-type-content">
+                            <!-- 积分支付 start -->
+                            <!-- 积分支付 end -->
+                            <!-- 余额支付 start -->
+                            <!-- 余额支付后面显示的应付款信息 -->
+                            <p class="surplus-pay" id="balance_money_pay">
+                                剩余应付金额
+                                <strong class="second-color SZY-ORDER-MONEY-PAY">
+                                    ￥0.00
+                                </strong> 请选择以下支付方式支付
+                            </p>
+                            <!-- 银行支付方式调用 start -->
+                            <div class="pay-all" id="pay_bank">
+                                <ul id="paylist" class="payment-tab">
+                                    <!-- 货到付款特殊处理 -->
+                                    <li class="clearfix" style="display: none;">
+                                        <label>
+                                            <input type="radio" id="pac_code_-1" name="pay_code" class="pay_code"
+                                                value="cod">
+                                            <img src="images/payment/cod.jpg" alt="" class="pay-img">
+                                        </label>
+                                        <div class="pay-tips" style="display: none;">
+                                            <div class="pay-tips-name">
+                                                <i></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 货到付款特殊处理 -->
+                                    <li class="clearfix">
+                                        <label>
+                                            <input type="radio" id="pac_code_1" name="pay_code" class="pay_code"
+                                                value="alipay" checked="">
+                                            <img src="images/payment/alipay.jpg" alt="" class="pay-img">
+                                        </label>
+                                        <div class="pay-tips" style="display: none;">
+                                            <div class="pay-tips-name">
+                                                <i></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- 货到付款特殊处理 -->
+                                    <li class="clearfix">
+                                        <label>
+                                            <input type="radio" id="pac_code_3" name="pay_code" class="pay_code"
+                                                value="weixin">
+                                            <img src="images/payment/weixin.jpg" alt="" class="pay-img">
+                                        </label>
+                                        <div class="pay-tips" style="display: none;">
+                                            <div class="pay-tips-name">
+                                                <i></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 银行支付方式调用 end -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 提交订单 -->
+                <div class="confirm-pay bottom" id="checkout_amount">
+                    <div class="total-count">
+                        <div class="total-count-pay">
+                            <div class="total-count-pay-info">
+                                <span class="first">
+                                    订单总额：
+                                    <span class="SZY-ORDER-AMOUNT">￥0.00</span>
+                                </span>
+                            </div>
+                            <div class="total-count-pay-info">
+                                <span>
+                                    商品总额：
+                                    <span class="SZY-GOODS-AMOUNT">￥0.00</span>
+                                </span>
+                                <em>+</em>
+                                <span>
+                                    运费：
+                                    <span class="SZY-SHIPPING-FEE-AMOUNT">￥0.00</span>
+                                </span>
+                                <span class="SZY-ORDER-CASH-MORE-AMOUNT" style="display: none;">
+                                    <em>+</em>
+                                    <span>
+                                        货到付款加价：
+                                        <span>￥0.00</span>
+                                    </span>
+                                </span>
+                                <em>-</em>
+                                <span>
+                                    红包：
+                                    <span class="SZY-ORDER-BONUS-AMOUNT">￥0.00</span>
+                                </span>
+                                <em>-</em>
+                                <span>
+                                    优惠：
+                                    <span class="">￥0.00</span>
+                                </span>
+                                <span class="SZY-ORDER-STORE-CARD" style="display: none;">
+                                    <em>-</em>
+                                    <span>
+                                        店铺购物卡：
+                                        <span class="SZY-ORDER-STORE-CARD-AMOUNT">￥0.00</span>
+                                    </span>
+                                </span>
+                                <em>-</em>
+                                <span>
+                                    余额：
+                                    <span class="SZY-ORDER-BALANCE">￥0.00</span>
+                                </span>
+                                <em>=</em>
+                                <span class="end second-color">
+                                    应付款：
+                                    <span class="SZY-ORDER-MONEY-PAY">￥0.00</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back-to-cart fl">
+                        <a href="shoppingcar.html" title="返回购物车列表" class="color">返回修改购物车</a>
+                    </div>
+                    <div class="submit-box fr">
+                        <div class="fr">
+                            <a href="javascript:void(0);" class="submit-btn gopay bg-color">确认交易</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 新增地址弹框 -->
+            <div class="bomb-box addr-box" style="display: none;">
+                <div class="box-title">使用新地址</div>
+                <div class="box-oprate addr-box-oprate"></div>
+                <div class="content-info" id="edit-address-div">
+                    <form id="UserAddressModel" class="form-horizontal" novalidate="novalidate">
+                        <input type="hidden" id="isAdd" name="isAdd" value="1" />
+                        <input type="hidden" id="addressid" name="addressid" value="0" />
+                        <div class="form-group form-group-spe">
+                            <label for="consignee" class="input-left">
+                                <span class="spark">*</span>
+                                <span>收货人：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="consignee" class="form-control" name="consignee"
+                                    onblur="checkConsignee()">
+                            </div>
+                            <span id="consignee-error" class="form-control-error" style="display: none;"></span>
+                            <div class="invalid"></div>
+                        </div>
+                        <div class="form-group form-group-spe">
+                            <label for="regioncode" class="input-left">
+                                <span class="spark">*</span>
+                                <span>收货地址：</span>
+                            </label>
+                            <div class="form-control-box" id="distpicker" data-toggle="distpicker">
+                                <select id="province"></select>
+                                <!-- 省 -->
+                                <select id="city"></select>
+                                <!-- 市 -->
+                                <select id="district"></select>
+                                <!-- 区 -->
+                            </div>
+                            <span id="region-error" class="form-control-error" style="display: none;"></span>
+                            <div class="invalid"></div>
+                        </div>
+                        <div class="form-group form-group-spe">
+                            <label for="address" class="input-left">
+                                <span class="spark">*</span>
+                                <span>详细地址：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="address" class="form-control address_detail" name="address"
+                                    onblur="checkAddress()" placeholder="请如实填写详细收货地址">
+                            </div>
+                            <span id="address-error" class="form-control-error" style="display: none;"></span>
+                            <div class="invalid"></div>
+                        </div>
+                        <div class="form-group form-group-spe">
+                            <label for="housenumber" class="input-left">
+                                <span>门牌号：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="housenumber" class="form-control" name="housenumber"
+                                    placeholder="例：5号楼301室">
+                            </div>
+                            <div class="invalid"></div>
+                        </div>
+                        <div class="form-group form-group-spe">
+                            <label for="phone" class="input-left">
+                                <span class="spark">*</span>
+                                <span>手机号码：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="phone" class="form-control" name="phone" onblur="checkPhone()"
+                                    placeholder="请填写收货手机号码">
+                            </div>
+                            <span id="phone-error" class="form-control-error" style="display: none;"></span>
+                            <div class="invalid"></div>
+                        </div>
+                        <!-- 固定电话 -->
+                        <div class="form-group form-group-spe">
+                            <label for="fixedphone" class="input-left">
+                                <span>固定电话：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="fixedphone" class="form-control" name="fixedphone"
+                                    onblur="checkFixedPhone()" placeholder="xxxx-xxxxxxx">
+                            </div>
+                            <span id="fixedphone-error" class="form-control-error" style="display: none;"></span>
+                            <div class="invalid"></div>
+                        </div>
+                        <!-- 固定电话   -->
+                        <div class="form-group form-group-spe">
+                            <label for="email" class="input-left">
+                                <span>邮件地址：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="email" class="form-control" name="email" onblur="checkEmail()"
+                                    placeholder="xxx@xx.xx">
+                            </div>
+                            <span id="email-error" class="form-control-error" style="display: none;"></span>
+                            <div class="invalid"></div>
+                        </div>
+                        <!-- 地址别名 -->
+                        <div class="form-group form-group-spe">
+                            <label for="label" class="input-left">
+                                <span>标签：</span>
+                            </label>
+                            <div class="form-control-box">
+                                <input type="text" id="label" class="form-control valid" name="label"
+                                    placeholder="建议填写常用名称" style="width: 120px;">
+                                <span class="addr-alias m-l-10">
+                                    <a class="address-alias-label">家里</a>
+                                    <a class="address-alias-label">公司</a>
+                                    <a class="address-alias-label">父母家</a>
+                                </span>
+                            </div>
+                            <div class="invalid"></div>
+                        </div>
+                        <div class="act">
+                            <input type="button" id="btn_save" value="保存收货地址">
+                            <input type="button" value="取消" class="m-l-10" onclick="cancel()">
+                        </div>
+                    </form>
+                    <div class="address-picker">
+                        <div id="map_container" class="amap-container"
+                            style="background: rgb(252, 249, 242); cursor: url(&quot;http://webapi.amap.com/theme/v1.3/openhand.cur&quot;), default;">
+                            <object
+                                style="display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;"
+                                type="text/html" data="about:blank"></object>
+                            <div class="amap-maps">
+                                <div class="amap-drags">
+                                    <div class="amap-layers" style="transform: translateZ(0px);"><canvas
+                                            class="amap-layer" width="410" height="390"
+                                            style="position: absolute; z-index: 0; top: 0px; left: 0px; height: 390px; width: 410px;"></canvas>
+                                        <div class="amap-markers"
+                                            style="position: absolute; z-index: 120; top: 195px; left: 205px;">
+                                            <div class="amap-marker"
+                                                style="top: -31px; left: -9px; z-index: 100; transform: rotate(0deg); transform-origin: 9px 31px; display: block;">
+                                                <div class="amap-icon"
+                                                    style="position: absolute; overflow: inherit; opacity: 1;"><img
+                                                        src="images/common/location.png" style="top: 0px; left: 0px;">
+                                                </div>
+                                            </div>
+                                            <div class="amap-marker"
+                                                style="top: 0px; left: 0px; z-index: 100; transform: rotate(0deg); transform-origin: 0px 0px; display: none;">
+                                                <div class="amap-icon"
+                                                    style="position: absolute; width: 19px; height: 33px; opacity: 1;">
+                                                    <img src="http://webapi.amap.com/theme/v1.3/markers/n/mark_bs.png"
+                                                        style="width: 19px; height: 33px; top: 0px; left: 0px;"></div>
+                                            </div>
+                                        </div><canvas class="amap-labels" draggable="false" width="410" height="390"
+                                            style="position: absolute; z-index: 99; height: 390px; width: 410px; top: 0px; left: 0px;"></canvas>
+                                        <div class="amap-e" style="z-index: 11; opacity: 1;">
+                                            <div class="amap-custom amap-indoor-map">
+                                                <div class="floor-outline-image-con"></div>
+                                                <div class="floor-image-con"></div>
+                                                <div class="highlight-image-con"></div>
+                                                <div class="label-image-con"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="amap-overlays">
+                                        <div class="amap-info" style="position: absolute; left: 60px; top: 195px;">
+                                            <div style="position: absolute; bottom: 30px; left: 0px; display: block;">
+                                            </div>
+                                            <div style="position: absolute; bottom: 30px; left: 0px;">
+                                                <div>
+                                                    <div class="amap-info-content amap-info-outer">当前位置：<label
+                                                            style="color: #ff4500;"><span
+                                                                class="map_address_info">湖北省武汉市江夏区佛祖岭街道金融港路光谷金融港B18栋3楼</span></label>
+                                                    </div><a class="amap-info-close" href="javascript: void(0)"
+                                                        style="right: 5px;">×</a>
+                                                    <div class="amap-info-sharp" style="height: 23px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: none;"></div>
+                            <div class="amap-controls">
+                                <div class="amap-scalecontrol" style="left: 3px; bottom: 45px; visibility: visible;">
+                                    <div class="amap-scale-text" style="width: 105.134px;">50 米</div>
+                                    <div class="amap-scale-line">
+                                        <div class="amap-scale-edgeleft"></div>
+                                        <div class="amap-scale-edgeright" style="left: 98.1338px;"></div>
+                                        <div class="amap-scale-middle" style="width: 97.1338px;"></div>
+                                    </div>
+                                </div>
+                                <div class="amap-toolbar amap-touch-toolbar"
+                                    style="left: 0px; top: 20px; visibility: visible;">
+                                    <div class="amap-pancontrol" style="display: none;">
+                                        <div class="amap-pan-left"></div>
+                                        <div class="amap-pan-top"></div>
+                                        <div class="amap-pan-right"></div>
+                                        <div class="amap-pan-bottom"></div>
+                                    </div>
+                                    <div class="amap-geo amap-toolbar-geo" style="display: none;"></div>
+                                    <div class="amap-zoomcontrol">
+                                        <div class="amap-zoom-touch-plus amap-zoom-touch">
+                                            <div>+</div>
+                                        </div>
+                                        <div class="amap-zoom-ruler" style="display: none;">
+                                            <div class="amap-zoom-mask" style="height: 0px;"></div>
+                                            <div class="amap-zoom-cursor" style="top: 0px;"></div>
+                                            <div class="amap-zoom-labels">
+                                                <div class="amap-zoom-label-street"></div>
+                                                <div class="amap-zoom-label-city"></div>
+                                                <div class="amap-zoom-label-province"></div>
+                                                <div class="amap-zoom-label-country"></div>
+                                            </div>
+                                        </div>
+                                        <div class="amap-zoom-touch-minus">
+                                            <div>−</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amap-geolocation-con"
+                                    style="position: absolute; z-index: 9999; right: 3px; bottom: 3px;">
+                                    <div class="amap-geo"></div>
+                                </div>
+                                <div class="amap-indoormap-floorbar-control" style="display: none;"></div>
+                            </div>
+                            <a class="amap-logo" href="javascript:void(0)" target="_blank"><img
+                                    src="http://webapi.amap.com/theme/v1.3/logo@1x.png"></a>
+                            <div class="amap-copyright" style="display: none;">
+                                <!--v1.3.28-->© 2019 AutoNavi <span class="amap-mcode">- GS(2018)1709号</span></div>
+                        </div>
+                        <p class="map-footer">
+                            <a href="javascript:;" class="save-map"
+                                style="background-color: #ffaa45;color: #fff;">保存位置</a>
+                            <a href="javascript:;" class="back-map">回原位置</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- settleAccounts  checkout.html -->
+    <div class="bomb-box payment-box" style="display: none;">
+        <div class="box-title">请付款</div>
+        <div class="content-info">
+            <p class="warning">
+                <i></i>
+                <span>请您在新打开的页面上完成付款。</span>
+            </p>
+            <p class="prompt">付款完成前请不要关闭此窗口</p>
+            <p class="prompt">完成付款后请根据您的情况点击下面的按钮</p>
+            <p class="btns">
+                <a href="javascript:void(0)" class="pay_result">已完成付款</a>
+                <a href="javascript:void(0)" class="m-l-10 pay_result">付款遇到问题</a>
+            </p>
+        </div>
+    </div>
+    <div id="links" class="links-box w1210"></div>
+    <div class="site-footer">
+        <div class="footer-related">
+            <div class="footer-info">
+                <div class="info-text">
+                    <!-- 底部导航 -->
+                    <p class="nav-bottom">
+                        <a href="index.html" target="_blank">首页</a>
+                        <em>|</em>
+                        <a href="javascript:void(0)" target="_blank">分类</a>
+                        <em>|</em>
+                        <a href="javascript:void(0)" target="_blank">清单</a>
+                        <em>|</em>
+                        <a href="shoppingcar.html" target="_blank">购物车</a>
+                        <em>|</em>
+                        <a href="javascript:void(0)" target="">我的</a>
+                    </p>
+                    <p>
+                        买酒网（北京）电子商务有限公司(www.maijiuwang.com) 版权所有
+                        <a href="javascript:void(0)" target="">京ICP备16061833号-1</a>
+                    </p>
+                    <p class="company-info" style="display: none;">玉泉营北京111文化产业园</p>
+                    <p class="qualified">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<!-- 省市区三级联动插件 -->
+<script src="js/dist/distpicker.data.js"></script>
+<script src="js/dist/distpicker.js"></script>
+<script>
+    $("#header-top").load("layout/header-top.html");
+    $("#links").load("layout/links.html");
+
+    var loginId = getCookie("loginId");
+    if (loginId) {   //先显示商品信息数量  如果用户没有登录是不能进入此页面
+        var searchStr = window.location.search;
+        if (searchStr.indexOf("ids") != -1) {
+            var ids = searchStr.split("=")[1];
+            $.ajax({
+                type: "get",
+                url: "php/getmyshoppinglistbyids.php",
+                data: {
+                    ids: ids
+                },
+                success: function (result) {
+                    var goodsinfo = JSON.parse(result);
+                    goodsinfo = goodsinfo.data;
+                    if (goodsinfo.length > 0) {
+                        var html = ``;
+                        var sum = 0;
+                        goodsinfo.forEach(item => {
+                            var {
+                                id,
+                                goodsid,
+                                goodsname,
+                                goodsnum,
+                                goodsprice,
+                                goodsimg
+                            } = item;
+                            sum += goodsnum * parseFloat(goodsprice);
+                            html += `<tr class="goods_${goodsid}">
+                                        <td class="goods-img">
+                                            <a href="javascript:void(0)" title="" target="_blank" class="img">
+                                                <img src="${goodsimg}" width="50" height="50">
+                                            </a>
+                                        </td>
+                                        <td class="goods-master">
+                                            <p class="item-title">
+                                                <a href="javascript:void(0)" target="_blank" title="${goodsname}">${goodsname}</a>
+                                            </p>
+                                            <div class="item-other-info">
+                                                <div class="item-icon-list">
+                                                    <div class="item-icons">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="goods-attr">
+                                        </td>
+                                        <td class="goods-price"> ￥${(parseFloat(goodsprice)).toFixed(2)} </td>
+                                        <td class="goods-amount">${goodsnum}</td>
+                                        <td class="goods-sum">
+                                            <p class="sum second-color">￥${(goodsnum * parseFloat(goodsprice)).toFixed(2)}</p>
+                                        </td>
+                                    </tr>`;
+                        });
+                        $("#goods-content table tbody").html(html);
+                        sum = sum.toFixed(2);
+                        $("#shop_count_1 strong.SZY-SHOP-ORDER-AMOUNT-1").html("￥" + sum);
+                        $("#balance_money_pay strong.SZY-ORDER-MONEY-PAY").html("￥" + sum);
+                        $("#checkout_amount span.first span.SZY-ORDER-AMOUNT").html("￥" + sum);
+                        $("#checkout_amount span.end span.SZY-ORDER-MONEY-PAY").html("￥" + sum);
+
+                        setPage();
+                    }
+                }
+            });
+
+        } else {
+            window.location.href = "login.html";
+
+        }
+    } else {
+        window.location.href = "login.html";
+    }
+
+    function setPage() {
+        reloadUserAddress(true);
+
+        // 移除收货地址提示背景类
+        $("body").on('click', '#addressinfo', function () {
+            $(this).removeClass('bgcolor');
+        })
+
+        // 新增收货地址弹框
+        $("body").on('click', '.addr-add', function () {
+            $('.addr-box').show();
+            $('.bg').show();
+            $("#isAdd").val(1);
+            $("#addressid").val(0);
+            $("#consignee").val("");
+            $("#address").val("");
+            $("#housenumber").val("");
+            $("#phone").val("");
+            $("#fixedphone").val("");
+            $("#email").val("");
+            $("#label").val("");
+
+            $("#distpicker").distpicker('reset', true);  //调用省市区联动插件  设置里面的省市区的具体值   设内容重置
+        })
+
+        $("body").on('click', '.addr-box-oprate', function () {
+            $('.addr-box').hide();
+            $('.bg').hide();
+        });
+
+        // 编辑收货地址
+        $("body").on('click', '.address-edit', function () {
+            $('.addr-box').show();
+            $('.bg').show();
+            var address_id = $(this).attr('data-address-id');
+            $.ajax({
+                type: "get",
+                url: "php/address/selectaddressbyid.php",
+                data: {
+                    id: address_id
+                },
+                success: function (result) {
+                    var obj = JSON.parse(result);
+                    $("#addressid").val(obj.id);
+                    $("#consignee").val(obj.consignee);
+                    $("#address").val(obj.address);
+                    $("#housenumber").val(obj.housenumber);
+                    $("#phone").val(obj.phone);
+                    $("#fixedphone").val(obj.fixedphone);
+                    $("#email").val(obj.email);
+                    $("#label").val(obj.label);
+                    $("#isAdd").val(0);
+                    var regionList = obj.region.split(',');
+                    $("#province").val(regionList[0]).change();  //onchange事件  省市区选择跳转
+                    $("#city").eq(1).val(regionList[1]).change();
+                    $("#district").eq(2).val(regionList[2]);
+                }
+            });
+        });
+        //检测省市区地址手机号  固定号码  电子邮箱
+        $("#btn_save").click(function () {
+            if (!checkConsignee()) {
+                return false;
+            }
+            if (!checkRegion()) {
+                return false;
+            }
+            if (!checkAddress()) {
+                return false;
+            }
+            if (!checkPhone()) {
+                return false;
+            }
+            if (!checkFixedPhone()) {
+                return false;
+            }
+            if (!checkEmail()) {
+                return false;
+            }
+            //新增地址  在前端验证后将页面数据存入后台mysql
+            if (checkConsignee() && checkRegion() && checkAddress() && checkPhone() && checkFixedPhone() && checkEmail()) {
+                //将页面上的省市区用引号拼接起来
+                var region = $("#province").val() + "," + $("#city").val() + "," + $("#district").val();
+                if ($("#isAdd").val() == "1") { //添加  地址的各个值
+                    $.ajax({
+                        type: "get",
+                        url: "php/address/createaddress.php",
+                        data: {
+                            userid: loginId,
+                            consignee: $("#consignee").val(),
+                            region: region,
+                            address: $("#address").val(),
+                            housenumber: $("#housenumber").val(),
+                            phone: $("#phone").val(),
+                            fixedphone: $("#fixedphone").val(),
+                            email: $("#email").val(),
+                            label: $("#label").val()
+                        },
+                        success: function (result) {
+                            var obj = JSON.parse(result);
+                            $('.addr-box').hide();
+                            $('.bg').hide();
+                            if (obj.code == 1) {
+                                layer.msg(obj.msg);
+                                reloadUserAddress();
+                            } else {
+                                layer.msg(obj.msg);
+                            }
+                        }
+                    });
+                } else {
+                    //修改地址
+                    $.ajax({
+                        type: "get",
+                        url: "php/address/updateaddress.php",
+                        data: {
+                            id: $("#addressid").val(),
+                            consignee: $("#consignee").val(),
+                            region: region,
+                            address: $("#address").val(),
+                            housenumber: $("#housenumber").val(),
+                            phone: $("#phone").val(),
+                            fixedphone: $("#fixedphone").val(),
+                            email: $("#email").val(),
+                            label: $("#label").val()
+                        },
+                        success: function (result) {
+                            var obj = JSON.parse(result);
+                            $('.addr-box').hide();
+                            $('.bg').hide();
+                            if (obj.code == 1) {
+                                layer.msg(obj.msg);
+                                reloadUserAddress();
+                            } else {
+                                layer.msg(obj.msg);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        // 删除收货地址
+        $("body").on('click', '.address-delete', function () {
+            var address_id = $(this).attr('data-address-id');
+
+            layer.confirm("您确定要删除此收货地址吗？", {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.ajax({
+                    type: "get",
+                    //删除地址
+                    url: "php/address/deleteaddress.php",
+                    data: {
+                        id: address_id
+                    },
+                    success: function (result) {
+                        var obj = JSON.parse(result);
+                        if (obj.code == 1) {
+                            layer.msg(obj.msg);
+                            reloadUserAddress();
+                        } else {
+                            layer.msg(obj.msg);
+                        }
+                    }
+                });
+            });
+        })
+
+        // 设置收货地址为默认  如果isdefault为0则设为1
+        $("body").on('click', '.address-default', function () {
+            var address_id = $(this).attr('data-address-id');
+            $.ajax({
+                type: "get",
+                //设置默认地址
+                url: "php/address/updateaddressdefault.php",
+                data: {
+                    id: address_id,
+                    userid: loginId
+                },
+                success: function (result) {
+                    var obj = JSON.parse(result);
+                    if (obj.code == 1) {
+                        layer.msg(obj.msg);
+                        reloadUserAddress();
+                    } else {
+                        layer.msg(obj.msg);
+                    }
+                }
+            });
+        })
+
+        // 选择收货地址
+        $("body").on('click', '.address-box', function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+        });
+
+        // 选择标签
+        $("body").on('click', '.address-alias-label', function () {
+            $("#label").val($(this).html());
+        });
+
+        // 更多收货地址展开收缩效果
+        $("body").on('click', '.addr-more', function () {
+            $('.address-more').show();
+            $(this).parent('.addr-more-btn').hide();
+        });
+
+        // 设置送货时间
+        $("body").on('click', '.best_time', function () {
+            if ($(this).is(":checked")) {
+                $(".box").removeClass('active').removeClass('active2');
+                $(this).parent().parent().addClass('active');
+            }
+        });
+
+        // 选中自提点
+        $("body").on('click', ".postage-box-1", function () {
+            $(".postage-box-1").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $("body").on('click', ".submit-btn", function () {
+            $(".payment-box").show();
+        });
+
+        $("body").on('click', ".payment-box .pay_result", function () {
+            $(".payment-box").hide();
+        });
+    }
+
+    // 取消添加地址
+    function cancel() {
+        $('.addr-box').hide();
+        $('.bg').hide();
+    }
+
+    /**
+     * 重载用户地址  每次新增删除,修改地址后都需要重载一次
+     */
+    function reloadUserAddress(isfirst = false) {
+        $.ajax({
+            type: "get",
+            //重载用户地址
+            url: "php/address/selectaddresslist.php",
+            data: {
+                userid: loginId,
+            },
+            success: function (result) {
+                var list = JSON.parse(result);
+                var html = ``;
+                if (list.length > 0) {
+                    list.forEach(item => {
+                        var {
+                            id,
+                            userid,
+                            isdefault,
+                            region,
+                            consignee,
+                            address,
+                            housenumber,
+                            phone,
+                            fixedphone,
+                            email,
+                            label
+                        } = item;
+                        var active = "";
+                        var defaultHtml = `<a href="javascript:void(0)" class="address-default" data-address-id="${id}">设为默认</a>`;
+                        if (isdefault == 1) {
+                            defaultHtml = `<span class="deftip">默认地址</span>`;
+                            active = "active";
+                        }
+                        //将省市区用逗号分隔
+                        var regionList = region.split(',');  //分隔之后的才能一个个王里面放
+                        html += `<div data-address-id="${id}" class="address-box ${active}">
+                                    <div class="address-box-info" data-address-id="${id}">
+                                        <div class="name">
+                                            <h3 class="alias">
+                                                ${label}
+                                                <span>——</span>
+                                            </h3>
+                                            ${consignee}
+                                        </div>
+                                        <div class="detaile">${regionList[0]} ${regionList[1]} ${regionList[2]}</div>
+                                        <div class="detaile">${address} ${housenumber}</div>
+                                        <div class="number-phone">${phone}</div>
+                                    </div>
+                                    <div class="addr-operate">
+                                        <a href="javascript:void(0)" class="address-edit color" data-address-id="${id}" title="修改地址">修改</a>
+                                        <a href="javascript:void(0)" class="address-delete color" data-address-id="${id}" title="删除地址">删除</a>
+                                        ${defaultHtml}
+                                    </div>
+                                </div>`;
+                    });
+                } else {
+                    // 如果第一次进来就弹出编辑地址弹框,其余情况下自然隐藏起弹框 点击之后才能显示
+                    if (isfirst) {
+                        $('.addr-box').show();
+                        $('.bg').show();
+                    }
+                }
+                $("#user_address_list .address-list").html(html);
+            }
+        });
+    }
+
+    /*收货人验证  不能为空*/  
+    function checkConsignee() {
+        var consignee = $("#consignee").val();
+        if (consignee == "") {
+            $("#consignee-error").html("收货人不能为空").css("display", "");
+            return false;
+        }
+        $("#consignee-error").html("").css("display", "none");
+        return true;
+    }
+
+    /*收货地址验证  不能为空*/
+    function checkRegion() {
+        if ($("#province").val() == "" || $("#city").val() == "") {
+            $("#region-error").html("请选择收货地址").css("display", "");
+            return false;
+        }
+        $("#region-error").html("").css("display", "none");
+        return true;
+    }
+
+    /*详细地址验证*/
+    function checkAddress() {
+        var address = $("#address").val();
+        if (address == "") {
+            $("#address-error").html("详细地址不能为空").css("display", "");
+            return false;
+        }
+        $("#address-error").html("").css("display", "none");
+        return true;
+    }
+
+    /*手机号验证*/
+    function checkPhone() {
+        var phone = $("#phone").val();
+        if (phone == "") {
+            $("#phone-error").html("手机号码不能为空").css("display", "");
+            return false;
+        }
+        var reg = /^1\d{10}$/;
+        if (reg.test(phone) == false) {
+            $("#phone-error").html("手机号码不正确，请重新输入").css("display", "");
+            return false;
+        }
+        $("#phone-error").html("").css("display", "none");
+        return true;
+    }
+
+    /*固定电话验证*/
+    function checkFixedPhone() {
+        var fixedphone = $("#fixedphone").val();
+        if (fixedphone != "") {
+            // var reg = /^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/;
+            var reg= /0\d{2}-\d{7,8}/;
+            if (reg.test(phone) == false) {
+                $("#fixedphone-error").html("固定电话格式不正确，请重新输入").css("display", "");
+                return false;
+            }
+        }
+        $("#fixedphone-error").html("").css("display", "none");
+        return true;
+    }
+
+    /*邮箱验证*/
+    function checkEmail() {
+        var email = $("#email").val();
+        if (email != "") {
+            var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            if (reg.test(email) == false) {
+                $("#email-error").html("邮箱格式不正确，请重新输入").css("display", "");
+                return false;
+            }
+        }
+        $("#email-error").html("").css("display", "none");
+        return true;
+    }
+</script>
+
+</html>

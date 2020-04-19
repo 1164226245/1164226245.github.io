@@ -1,0 +1,46 @@
+{
+  "name": "react-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --inline --hot",
+    "build": "rimraf dist && webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.7.3",
+    "axios": "^0.19.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^3.4.0",
+    "cssgrace": "^3.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^5.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "node-sass": "^4.13.0",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "postcss-loader": "^3.0.0",
+    "postcss-px2rem-exclude": "^0.0.6",
+    "sass-loader": "^7.3.1",
+    "source-map": "^0.7.3",
+    "style-loader": "^1.1.1",
+    "url-loader": "^3.0.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^4.3.1"
+  }
+}

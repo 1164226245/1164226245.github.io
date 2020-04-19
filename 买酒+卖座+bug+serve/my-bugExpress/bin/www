@@ -1,0 +1,127 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('my-exp:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+//socket   服务端业务 s 引入并启动服务
+var querystring = require("querystring");
+// 1. 创建 服务器 绑定 IP 和 端口  监听端口
+var io = require("socket.io").listen(server);
+var onLineCount = 0;
+// 2. 监听 客户端 链接  
+io.on("connection",(socket)=>{
+    console.log(`${querystring.stringify(socket)} 上线了.... `)
+
+    // 3. 监听 客户端 发来的消息
+    socket.on("login",(nickname)=>{
+        console.log(nickname);
+        socket.name = nickname;
+        onLineCount++;
+        // 4. 转发 消息 给其他的 客户端 
+        socket.emit("loginSuccess");   // 只能发送给自己 
+        io.sockets.emit("setOnLineCount",onLineCount); // 发送给所有在线用户;
+        io.sockets.emit("system",nickname);       
+    })
+    socket.on("sendClientMsg",msg=>{
+        io.sockets.emit("getMsgfromServer",socket.name,msg);
+    })
+
+    // error 
+    socket.on("error",(err)=>{
+        console.error(err);
+    })
+    // 5. 监听 客户端的 关闭 
+    // close 
+    socket.on("disconnect",()=>{
+        onLineCount--;
+        io.sockets.emit("setOnLineCount",onLineCount); // 发送给所有在线用户;
+        socket.broadcast.emit("getMsgfromServer",socket.name,"886,我走了...."); // 发送给除了自己以外的用户 
+    })
+});
+//socket  服务端业务 e  结束
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

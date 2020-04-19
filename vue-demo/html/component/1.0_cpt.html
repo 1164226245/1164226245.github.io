@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        
+          <demo></demo>
+
+        <my-head></my-head>
+
+        <my-foot></my-foot>
+
+        <c-menu></c-menu>
+
+        <c-swipe></c-swipe>
+
+        <c-login></c-login>
+
+        <c-serach></c-serach>
+
+        <c-main></c-main>
+
+        <btn></btn>
+        <btn></btn>
+        <btn></btn>
+    </div>
+</body>
+<script src="../../js/vue.js"></script>
+<script>
+    //全局注册vue组件
+
+    Vue.component('demo',{
+        template:`<h3>最简单的组件</h3>`
+
+    });
+    Vue.component('c-menu',{
+        template:`<h3>全局注册--菜单组件--</h3>`
+    });
+    Vue.component('c-nav',{
+        template:`<h3>全局注册 ---导航组件--</h3>`
+    });
+    var swipe={
+        template:`<h3>轮播组件---全局注册</h3>`
+    }
+
+    Vue.component("c-swipe",swipe);
+
+    const Login={
+        template:`<h3>全局注册----登录组件</h3>`
+    }
+
+    Vue.component("c-login",Login);
+    //使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
+
+    //data 选项是特例，需要注意 - 在 Vue.extend() 中它必须是函数
+
+    const  Search =Vue.extend({
+        template:`<h3>---搜索组件-- 局部注册调用</h3>`
+    });
+
+    const Main= {
+        data(){
+            return {
+                id:1111
+            }
+        },
+        template:'<p>main  组件</p>',
+        methods:{
+
+        },
+        computed:{
+
+        },
+        watch:{
+
+        },
+        filters:{  //过滤器
+
+        },
+        directives:{  //局部注册的指令
+
+        },
+        mounted(){
+            console.log("main---")
+        }
+    }
+    Vue.component("c-main",Main);
+
+    Vue.component("btn",{
+        data(){
+            return {
+                    count:0
+            }
+        },
+        methods:{
+            add(){
+                this.count+=1;
+            }
+        },
+        template:`<button  @click='add'>{{count}}</button>`
+    })
+
+    // vue实例
+    const app =new Vue({
+        data:{
+            title:"vue 组件的学习"
+        },
+        //局部注册组件
+        components:{
+            myHead:{
+                template:`<h3>局部注册-头部组件---head</h3>`
+            },
+            myFoot:{
+                template:`<h3>局部注册--尾部组件---foot</h3>`
+            },
+            'c-serach':Search
+        },
+
+        mounted(){
+            document.getElementsByTagName("title")[0].innerHTML=this.title;
+        }
+
+    }).$mount("#app");
+</script>
+</html>

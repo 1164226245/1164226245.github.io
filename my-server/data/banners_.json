@@ -1,0 +1,57 @@
+{
+    "status": 0,
+    "data": [
+        {
+            "bannerId": 344,
+            "actionType": 2,
+            "actionData": "{\"url\":\"https://m.maizuo.com/mz-act/brand/groupon/LZfli7szOi?partnerId=mz\u0026co=mzmovie\"}",
+            "imgUrl": "https://static.maizuo.com/v5/upload/f25752b1944a0031696bcc77666fc190.jpg",
+            "masterTitle": "",
+            "slaveTitle": "",
+            "displayOrder": 0,
+            "bindBusinessId": "",
+            "cityIds": "420100,420600,420500,420800,421000,420300,420200,421100",
+            "name": "湖北万达影院电影兑换券",
+            "displayTimes": 0,
+            "slaveImgUrl": "",
+            "startTime": "1574870400",
+            "endTime": "1606233599",
+            "businessId": ""
+        },
+        {
+            "bannerId": 349,
+            "actionType": 22,
+            "actionData": "{\"businessId\":\"4919\"}",
+            "imgUrl": "https://static.maizuo.com/v5/upload/13648b1f3e9255a97a96cd6718ea844a.jpg",
+            "masterTitle": "",
+            "slaveTitle": "",
+            "displayOrder": 0,
+            "bindBusinessId": "",
+            "cityIds": "0",
+            "name": "被光抓走的人",
+            "displayTimes": 0,
+            "slaveImgUrl": "",
+            "startTime": "1575993600",
+            "endTime": "1576857599",
+            "businessId": ""
+        },
+        {
+            "bannerId": 350,
+            "actionType": 22,
+            "actionData": "{\"businessId\":\"4933\"}",
+            "imgUrl": "https://static.maizuo.com/v5/upload/36e09fb0bde998300903adb62682ad2f.jpg",
+            "masterTitle": "",
+            "slaveTitle": "",
+            "displayOrder": 0,
+            "bindBusinessId": "",
+            "cityIds": "0",
+            "name": "天·火",
+            "displayTimes": 0,
+            "slaveImgUrl": "",
+            "startTime": "1575993600",
+            "endTime": "1576857599",
+            "businessId": ""
+        }
+    ],
+    "msg": "success"
+}

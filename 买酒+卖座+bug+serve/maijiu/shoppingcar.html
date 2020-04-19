@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车 - 买酒网-中国多快好省的白酒,红酒,洋酒,葡萄酒官方网站!</title>
+    <link rel="icon" type="image/x-icon" href="http://www.mjwimg.com/images/system/config/website/favicon_0.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.mjwimg.com/images/system/config/website/favicon_0.ico">
+    <link rel="stylesheet" href="assets/iconfont/iconfont.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/flow.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/layer/layer.js"></script>
+</head>
+
+<body>
+    <div id="header-top" class="header-top"></div>
+    <div id="header" class="header"></div>
+    <div class="w990" id="content">
+        <div class="content" id="cartEmpty">
+            <div class="cart-empty">
+                <div class="message">
+                    <ul>
+                        <li class="txt">购物车还是空空的呢，快去看看心仪的商品吧~</li>
+                        <li>
+                            <a href="listSearch.html" class="btn-link" title="去购物">去购物&gt;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content" id="cartContent" style="display: none;">
+            <div class="cart-filter-bar">
+                <div class="switch-cart" id="cart_num">
+                    <!-- 购物车数量 -->
+                    <span class="color">
+                我的购物车
+                <em class="color">1</em>
+            </span>
+                </div>
+            </div>
+            <div class="cart-main">
+                <div class="cart-table-th">
+                    <div class="wp">
+                        <div class="th th-chk">
+                            <div class="select-all">
+                                <div class="cart-checkbox all-checkbox select">
+                                    <label for="">勾选购物车内所有商品</label>
+                                    <span>&nbsp;&nbsp;全选</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="th th-item">
+                            <div class="td-inner">商品信息</div>
+                        </div>
+                        <div class="th th-info">
+                            <div class="td-inner">&nbsp;</div>
+                        </div>
+                        <div class="th th-price">
+                            <div class="td-inner">单价（元）</div>
+                        </div>
+                        <div class="th th-amount">
+                            <div class="td-inner">数量</div>
+                        </div>
+                        <div class="th th-sum">
+                            <div class="td-inner">金额（元）</div>
+                        </div>
+                        <div class="th th-op">
+                            <div class="td-inner">操作</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cart_list">
+                    <!-- 各个店铺下的信息 -->
+                    <div class="order-body">
+                        <div class="order-content">
+                            <div class="item-list">
+                                <div class="bundle bundle-last">
+                                    <!-- 购物车中商品列表 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 购物车统计 -->
+            <div class="cart-foot bottom">
+                <div class="cart-foot-wrapper">
+                    <div class="select-all">
+                        <div class="cart-checkbox all-checkbox select">
+                            <label for="">勾选所有商品</label>
+                            <span>&nbsp;&nbsp;全选</span>
+                        </div>
+                    </div>
+                    <div class="operations">
+                        <a href="javascript:void(0)" class="del">删除</a>
+                    </div>
+                    <div class="cart-bar-right" id="cart_count">
+                        <div class="amount-sum">
+                            <span class="txt">已选商品</span>
+                            <em class="second-color SZY-CART-SELECT-GOODS-NUMBER">1</em>
+                            <span class="txt">件</span>
+                        </div>
+                        <div class="price-sum">
+                            <span class="txt">合计（不含运费）:</span>
+                            <strong class="price second-color SZY-CART-SELECT-GOODS-AMOUNT">￥359.88</strong>
+                        </div>
+                        <div class="btn-area">
+                            <a href="javascript:void(0)" onclick="submitCheckOut()" class="submit-btn SZY-CART-SUBMIT">
+                                <span>结 算</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="links" class="links-box w1210"></div>
+    <div class="site-footer">
+        <div class="footer-related">
+            <div class="footer-info">
+                <div class="info-text">
+                    <!-- 底部导航 -->
+                    <p class="nav-bottom">
+                        <a href="index.html" target="_blank">首页</a>
+                        <em>|</em>
+                        <a href="javascript:void(0)" target="_blank">分类</a>
+                        <em>|</em>
+                        <a href="javascript:void(0)" target="_blank">清单</a>
+                        <em>|</em>
+                        <a href="shoppingcar.html" target="_blank">购物车</a>
+                        <em>|</em>
+                        <a href="javascript:void(0)" target="_blank">我的</a>
+                    </p>
+                    <p>
+                        买酒网（北京）电子商务有限公司(www.maijiuwang.com) 版权所有
+                        <a href="javascript:void(0)" target="_blank">京ICP备16061833号-1</a>
+                    </p>
+                    <p class="company-info" style="display: none;">玉泉营北京111文化产业园</p>
+                    <p class="qualified">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $("#header-top").load("layout/header-top.html");
+    $("#header").load("layout/header.html", function() {
+        $("#header").find(".header-right").css("display", "none");
+    });
+    $("#links").load("layout/links.html");
+    //有用户登录的情况展示购物车情况
+    var loginId = getCookie("loginId");
+    if (loginId) {
+        $.ajax({
+            type: "get",
+            url: "php/goodsmyshoppinglist.php",
+            data: {
+                userid: loginId
+            },
+            success: function(result) {
+                var goodsinfo = JSON.parse(result);
+                if (goodsinfo.length>0) {
+                    var html = ``;
+                    var sum = 0;
+                    var total = 0;
+                    goodsinfo.forEach(item => {
+                        var {
+                            id,
+                            goodsid,
+                            goodsname,
+                            goodsnum,
+                            goodsprice,
+                            goodsimg
+                        } = item;
+                        sum += goodsnum * 1;
+                        total += parseFloat(goodsnum * goodsprice);
+                        html += `<div class="item-holder" id="cartid_${id}">
+                                        <div class="item-body" data-cart-id="${id}">
+                                            <ul class="item-content clearfix goods_9324_1084">
+                                                <li class="td td-chk">
+                                                    <div class="td-inner">
+                                                        <div class="cart-checkbox goods-checkbox select" data-shop-id="${id}">
+                                                            <input type="checkbox" name="checkbox" value="${id}" checked="checked">
+                                                            <label for="">勾选商品</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="td td-item">
+                                                    <div class="td-inner">
+                                                        <div class="item-pic">
+                                                            <a href="goodsDetail.html?id=${goodsid}" target="_blank" class="">
+                                                                <img src="${goodsimg}" class="itempic">
+                                                            </a>
+                                                        </div>
+                                                        <div class="item-info">
+                                                            <div class="item-basic-info">
+                                                                <a href="goodsDetail.html?id=${goodsid}" target="_blank" title="${goodsname}" class="item-title">
+                                                                        ${goodsname}
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="td td-info">
+                                                </li>
+                                                <li class="td td-price">
+                                                    <div class="td-inner">
+                                                        <div class="item-price">
+                                                            <div class="price-content">
+                                                                <div class="price-line price-line1">
+                                                                    <em class="price-now">￥${(parseFloat(goodsprice)).toFixed(2)}</em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="td td-amount">
+                                                    <div class="td-inner">
+                                                        <div class="amount-wrapper">
+                                                            <div class="item-amount">
+                                                                <span class="amount-widget amount">
+                                                            <input type="text" class="amount-input" value="${goodsnum}" data-cart-price="${(parseFloat(goodsprice)).toFixed(2)}" data-cart-id="${id}" id="number_${id}" maxlength="8" title="请输入购买量">
+                                                            <span class="amount-btn">
+                                                                <span class="amount-plus">
+                                                                    <i>+</i>
+                                                                </span>
+                                                                <span class="amount-minus">
+                                                                    <i>${goodsnum>1?"-":""}</i>
+                                                                </span>
+                                                                </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="amount-msg" style="display:none">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="td td-sum">
+                                                    <div class="td-inner">
+                                                        <em class="number second-color">￥${(goodsnum*parseFloat(goodsprice)).toFixed(2)}</em>
+                                                    </div>
+                                                </li>
+                                                <li class="td td-op">
+                                                    <div class="td-inner">
+                                                        <a href="javascript:void(0);" class="del" data-cart-id="${id}">删除</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div class="fixed-goods-name">
+                                            </div>
+                                        </div>
+                                    </div>`;
+                    });
+
+                    $("#cart_list .item-list .bundle").html(html);
+                    $("#cart_num span em").html(goodsinfo.length);
+                    select();
+                    $("#cartEmpty").css("display", "none");
+                    $("#cartContent").css("display", "");
+                    setPage();
+                } else {
+                    $("#cartEmpty").css("display", "");
+                    $("#cartContent").css("display", "none");
+                }
+            }
+        });
+    }
+    //设置内容
+    function setPage() {
+        $("#cart_list .item-list span.amount-btn .amount-plus").click(function() {
+            var currentParent = $(this).parent().parent()[0];
+            var input = $(currentParent).find("input.amount-input")[0];
+            var cartid = $(input).attr("data-cart-id");
+            setMyshoppingCarNum(cartid, 1, function(result) {  //拿到数量后进入购物车
+                var obj = JSON.parse(result);
+                if (obj.code == 1) {
+                    var price = parseFloat($(input).attr("data-cart-price"));
+                    var reduce = $(currentParent).find("span.amount-minus")[0];
+                    $(input).val($(input).val() * 1 + 1);
+                    $(reduce).html("<i>-</i>");
+                    $("#cartid_" + cartid + " .td-sum em.number").html("￥" + (price * ($(input).val() * 1)).toFixed(2));
+                    select();
+                } else {
+                    layer.msg(obj.msg);
+                }
+            });
+        });
+        //点击加入数量  判断如果数量为1就不能继续减少
+        $("#cart_list .item-list span.amount-btn .amount-minus").click(function() {
+            var currentParent = $(this).parent().parent()[0];
+            var input = $(currentParent).find("input.amount-input")[0];
+            if ($(input).val() == "1") {
+                layer.msg("商品数量不能为0");
+            } else {
+                var cartid = $(input).attr("data-cart-id");
+                setMyshoppingCarNum(cartid, -1, function(result) {
+                    var obj = JSON.parse(result);
+                    if (obj.code == 1) {
+                        $(input).val($(input).val() * 1 - 1);
+                        var cartid = $(input).attr("data-cart-id");
+                        var price = parseFloat($(input).attr("data-cart-price"));
+                        $("#cartid_" + cartid + " .td-sum em.number").html("￥" + (price * ($(input).val() * 1)).toFixed(2));
+                        if ($(input).val() == "1") {
+                            $(currentParent).find("span.amount-minus").html("");
+                        }
+                        select();
+                    } else {
+                        layer.msg(obj.msg);
+                    }
+                });
+            }
+        });
+
+        // 商品选择框
+        $("body").on('click', '.goods-checkbox', function() {
+            if ($(this).hasClass('select')) {
+                $(this).removeClass('select');
+                $(this).find(":checkbox").prop("checked", false);
+                $('.all-checkbox').removeClass('select'); // 全选取消
+            } else {
+                $(this).addClass('select');
+                $(this).find(":checkbox").prop("checked", true);
+                //计算文档中所有图片数量
+                if ($("#cart_list").find(":checkbox").size() == $("#cart_list").find(":checkbox:checked").size()) {
+                    $('.all-checkbox').addClass('select'); // 全选选中
+                }
+            }
+            select();
+        });
+
+        // 全选框
+        $("body").on('click', '.all-checkbox', function() {
+            if ($(this).hasClass('select')) {
+                $('.cart-checkbox').removeClass('select');
+                $("#cart_list").find(":checkbox").prop("checked", false);
+            } else {
+                $('.cart-checkbox').addClass('select');
+                $("#cart_list").find(":checkbox").prop("checked", true);
+            }
+            select();
+        })
+
+        // 删除  购物车  支持担单删或者多删
+        $("body").on('click', '.del', function() {
+            var cart_ids = $(this).attr('data-cart-id');
+            if (!cart_ids) {
+                cart_ids = [];
+                $("#cart_list").find(":checkbox:checked").each(function() {
+                    cart_ids.push($(this).val());
+                })
+            } else {
+                cart_ids = [cart_ids];
+            }
+
+            if (cart_ids.length == 0) {
+                layer.msg("请选择您要移除的商品");
+                return;
+            }
+
+            layer.confirm('您确定要从购物车中移除选中的商品吗?', {
+                btn: ['确定', '取消'] //按钮
+            }, function() {
+                var ids = cart_ids.join(',');
+                $.ajax({
+                    type: "get",
+                    url: "php/delmyshoppingcar.php",
+                    data: {
+                        ids: ids
+                    },
+                    success: function(result) {
+                        var obj = JSON.parse(result);
+                        if (obj.code == 1) {
+                            for (var j = 0; j < cart_ids.length; j++) {
+                                $("#cartid_" + cart_ids[j]).remove();
+                            }
+                            select();
+                            setCheckAll();
+                            if ($("#cart_list").find(":checkbox").size() == 0) {
+                                $("#cartEmpty").css("display", "");
+                                $("#cartContent").css("display", "none");
+                            }
+                            layer.msg("删除成功");
+                        } else {
+                            layer.msg(obj.msg);
+                        }
+                    }
+                });
+            }, function() {});  //回调
+        });
+    }
+    //更新购物车  数量  和id 及时增删改
+    function setMyshoppingCarNum(id, num, fn) {
+        $.ajax({
+            type: "get",
+            url: "php/updatemyshoppingcar.php",
+            data: {
+                id: id,
+                num: num
+            },
+            success: function(result) {
+                fn(result);
+            }
+        });
+    }
+
+    //  显示页面数目变化
+    function select() {
+        var countTotal = 0;
+        var countPrice = 0;
+        $("#cart_list").find("input[type='checkbox']:checked").each(function() {
+            var count = $("#number_" + $(this).val() + "").val() * 1;
+            countTotal += count;
+            var price = parseFloat($("#number_" + $(this).val() + "").attr("data-cart-price"));
+            countPrice += count * price;
+        });
+        $("#cart_count .amount-sum em").html(countTotal);
+        $("#cart_count .price-sum strong").html("￥" + countPrice.toFixed(2));
+        $("#header-top .header-box span.SZY-CART-COUNT").html(countTotal);
+    }
+    //原生数目显示
+    // function getNumAndPrice() {
+    //     var price = 0;
+    //     var num = 0;
+    //     let checkoneList = document.getElementsByClassName("checkone");
+    //     for (var i = 0; i < checkoneList.length; i++) {
+    //         if (checkoneList[i].checked) {
+    //             var tr = checkoneList[i].parentNode.parentNode;
+    //             var countInput = tr.getElementsByClassName("count-input")[0];//找到随时更新的
+    //             num += countInput.value * 1;
+    //             var subtotalTd = tr.getElementsByClassName("subtol")[0];//找到随时更新的小计
+    //             price += subtotalTd.innerHTML * 1;
+    //         }
+    //     }
+    //     var priceTotalSpan = document.getElementById("priceTotal");
+    //     var selectedTotalSpan = document.getElementById("selectedTotal");
+    //     priceTotalSpan.innerHTML = price.toFixed(2);
+    //     selectedTotalSpan.innerHTML = num;
+    // }
+     //全选封装
+    function setCheckAll() {
+        if ($("#cart_list").find(":checkbox").size() == $("#cart_list").find(":checkbox:checked").size()) {
+            $('.all-checkbox').addClass('select');
+        } else {
+            $('.all-checkbox').removeClass('select');
+        }
+    }
+    //结算提交
+    function submitCheckOut() {
+        var cart_ids = [];
+        $("#cart_list").find(":checkbox:checked").each(function() {
+            cart_ids.push($(this).val());
+        });
+
+        if (cart_ids.length == 0) {
+            layer.msg("请选择您要结算的商品");
+            return;
+        }
+        window.location.href = "settleAccounts.html?ids=" + cart_ids.join(',');
+    }
+</script>
+
+</html>

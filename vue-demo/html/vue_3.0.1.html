@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div id="app">
+       <h3>{{title}}</h3>
+    </div>
+    <div>
+        
+        <input type="text" id="model">
+        <p id="modelText"></p>
+    </div>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        data:{
+            title:"基于v-model的object.defineproperty原理数据监听实现数据双向绑定"
+        },
+        mounted(){
+            document.getElementsByTagName("title")[0].innerHTML=this.title
+        }
+    }).$mount("#app");
+
+    //object.defineProperty  来源于原生就是  ,基于原生就是用在Vue里面实现v-model的数据视图的双向绑定
+    var users={
+        username:"胡育林",
+        age:26
+    }
+    var defaultName="huyulin";
+    document.querySelector("#model").value=defaultName;
+    document.querySelector("#modelText").textContent=defaultName;
+
+    Object.defineProperty(users,"name",{
+        get(){
+            console.log("get方法  你来取值了");
+            // return defaultName;
+
+        },
+
+        set(newName){
+
+            console.log("设置新值");
+
+            defaultName=newName;
+
+            console.log(newName);
+
+            console.log("原生实现  模型(数据)=>视图(view)的更新");
+
+            document.querySelector("#model").value=newName;
+
+            document.querySelector("#modelText").textContent=newName;
+  
+        }
+    });
+    console.log("2s后执行");
+    setTimeout(()=>{
+        users.name="hyl"
+    },2000)
+</script>
+</html>

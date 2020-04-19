@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            display: flex;
+            width: 90%;
+            flex-direction: column;
+        }
+        /* .movie{
+            display: flex;
+            /* flex: 1; */
+            /* width: 300px;
+            height: 300px; */
+            /* justify-content: center;
+            align-content: center;
+        } */
+        /* .movie img{
+            width: 20%;
+            height: 20%;
+        } */ */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+
+        <!-- <router-link :to="{name:'find'}">发现</router-link>
+        <router-link :to="{name:'news'}">新闻</router-link>
+        <router-link :to="{name:'users'}">用户</router-link> -->
+        <!-- 路由出口 -->
+        <router-view style="border: 2px solid red; width: 80%;"></router-view>
+
+    </div>
+    <template id="my-head">
+        <div>
+            <h3>{{title}}</h3>
+        </div>
+    </template>
+    <!-- 主路由  layout -->
+    <template id="layout">
+        <div>
+            <h3>主页-----一级路由</h3>
+            <div>
+                <router-view style="border: 2px solid red; width: 80%;"></router-view>
+            </div>
+            <my-foot></my-foot>
+        </div>
+    </template>
+    <!-- 聊天组件 -->
+    <template id="wechat">
+        <div  class="wrapper">
+            <h3>二级路由 微信聊天</h3>
+            <div v-for="(m,i) in mv" :key="i" class="movie">
+                <p >
+                  名称:{{m.name}}
+                </p>
+                <img :src="m.poster" alt="" srcset="">
+            </div>
+
+        </div>
+    </template>
+    <!-- 通讯录组件 -->
+    <template id="contact">
+        <div>
+            <h3>联系人页面</h3>
+        </div>
+    </template>
+    <!-- 发现组件 -->
+    <template id="find">
+        <div>
+            <h3>发现页面</h3>
+        </div>
+    </template>
+    <!-- 我的页面组件 -->
+    <template id="mine">
+        <div>
+            <h3>我的</h3>
+        </div>
+    </template>
+    <!-- 尾部  my-foot组件 -->
+    <template id="my-foot">
+        <footer>
+            <!-- <h3 v-for="(item,index) in foot" >
+                {{item.txt}}
+            </h3> -->
+            <router-link v-for="(item,index) in foot" :key="index" :to="{name:item.name}">
+                    {{item.txt}}
+            </router-link>
+        </footer>
+    </template>
+
+
+</body>
+<script src="../../js/vue.js"></script>
+<script src="../../js/vue-router.min.js"></script>
+<script src="../../js/axios.min.js"></script>
+<script>
+    //头部组件
+    const Head = Vue.extend({
+        template: "#my-head",
+        data() {
+            return {
+                title: "头部组件"
+            }
+        }
+    });
+
+    Vue.component("my-head", Head);
+
+    //myfoot组件
+
+    const MyFoot = Vue.extend({
+        template: "#my-foot",
+        data() {
+            return {
+                foot: [
+                    { path: "", name: "wechat", txt: "微信" },
+                    { path: "", name: "contact", txt: "通讯录" },
+                    { path: "", name: "find", txt: "发现" },
+                    { path: "", name: "mine", txt: "我" },
+                ]
+            }
+        }
+
+    });
+
+    Vue.component("my-foot", MyFoot);  //组件注册
+
+    // 定义路由选项  主路由
+    const Layout = {
+        template: '#layout'
+
+    }
+    //发现页
+    const Find = {
+        template: "#find"
+    }
+    //聊天
+    const Wechat = {
+        template: "#wechat",
+        data(){
+            return {
+                mv:[]
+            }
+        },
+        mounted(){
+            //发起axios请求
+            axios({
+                url:"https://m.maizuo.com/gateway?cityId=130900&pageNum=1&pageSize=10&type=1&k=7893908",
+                headers:{
+                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"1574295263734439407931","bc":"130900"}',
+                    'X-Host': 'mall.film-ticket.film.list'
+                }
+            }).then(res=>{
+                console.log(res);
+                this.mv=res.data.data.films,
+                console.log(this.mv);
+            })
+
+        }
+    }
+    //联系人
+    const Contact = {
+        template: "#contact"
+    }
+    //我的
+    const Mine = {
+        template: "#mine"
+    }
+    //设置路由别名
+    const routes = [{
+        path: '/layout',
+        component: Layout,
+        name: 'layout',
+        children: [
+            {
+                path: " ",
+                redirect: { name: 'wechat' }
+            },
+            //聊天
+            {
+                path: 'wechat',
+                component: Wechat,
+                name: 'wechat'
+            },
+            //发现二级路由
+            {
+                path: 'find',
+                component: Find,
+                name: 'find'
+            },
+            //联系人二级路由
+            {
+                path: 'contact',
+                component: Contact,
+                name: 'contact'
+            },
+            //我的二级路由
+            {
+                path: 'mine',
+                component: Mine,
+                name: 'mine'
+            },
+            //重定向到聊天
+            {
+                path: "*",
+                redirect: { name: 'wechat' }
+            }
+
+        ]
+    },
+
+    //重定向到主页
+    {
+        path: "*",
+        redirect: { name: 'wechat' }
+    }
+    ]
+    //定义路由对象
+    const router = new VueRouter(
+        {
+            routes,
+            mode:"hash"
+        }
+    )
+
+    //挂载
+    const app = new Vue({
+        data: {
+            title: "vue路由配置  路由参数  APP端路由嵌套配置"
+        },
+        router,
+        mounted() {
+            document.getElementsByTagName("title")[0].innerHTML = this.title;
+        }
+    }).$mount("#app");
+</script>
+
+</html>

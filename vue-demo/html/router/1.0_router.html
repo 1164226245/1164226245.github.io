@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .router-link-exact-active, .router-link-active{
+            color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+
+        <!-- 声明式导航   to表示要跳转的路由 -->
+        <div>
+            <a href="#/home">a标签跳首页</a>
+            <router-link to="/home">首页</router-link>
+            <router-link to="/mine">我的</router-link>
+            <router-link to="/find">发现</router-link>
+
+        </div>
+        <!-- 配置路由出口 路由匹配到组件 组件渲染视图 -->
+        <div>
+            <router-view>
+
+            </router-view>
+        </div>
+    </div>
+    <template id="my-head">
+        <header>
+            <h3>{{title}}</h3>
+        </header>
+    </template>
+
+    <template id="home">
+        <div>
+            <h3>home===主页</h3>
+        </div>
+    </template>
+    <template id="mine">
+        <div>
+            <h3>mine===我的</h3>
+        </div>
+    </template>
+    <template id="find">
+        <div>
+            <h3>find===发现</h3>
+        </div>
+    </template>
+</body>
+<script src="../../js/vue.js"></script>
+<script src="../../js/vue-router.min.js"></script>
+<script>
+    // 1.定义路由组件  ,组件选项
+
+    const Home = { template: "#home" };
+
+    const Find = { template: "#find" };
+
+    const Mine = {
+        template: "#mine",
+        mounted() {
+            console.log(this.$router);
+        }
+    }
+    //2.定义路由选项  ,将组件和path一一映射
+
+    const routes = [
+        {
+            path: '/home',
+            component: Home
+        },
+        {
+            path: '/find',
+            component: Find
+        },
+        {
+            path: '/mine',
+            component: Mine
+        },
+        {
+            path: "*",
+            redirect: "/home",
+        }
+    ];
+
+    //3.创建router对象
+    const router = new VueRouter({
+        routes: routes
+    })
+    //注册组件
+    const Head = Vue.extend({
+        template: "#my-head",
+        data() {
+            return {
+                title: "头部组件"
+            }
+        }
+    })
+    Vue.component("my-head", Head);
+    //4.将router对象挂载到根实例上面
+
+    //app实例对象
+    const app = new Vue({
+        router: router,
+       
+        data: {
+            title: "vue路由的基本配置",
+
+        },
+        mounted() {
+           console.log(routes);
+            console.log(this.$router);
+            console.log(this.$route)
+            document.getElementsByTagName("title")[0].innerHTML = this.title;
+        }
+
+    }).$mount("#app");
+</script>
+
+</html>

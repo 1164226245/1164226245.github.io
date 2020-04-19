@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .op{
+            width: 80px;
+            height: 80px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+   <div id="app">
+       <h3>{{title}}</h3>
+
+            <my-head></my-head>
+            <hr>
+            <parent idx="999" :data-id="1206" :my-word="word">
+
+            </parent>
+   </div> 
+
+   <template id="myhead">
+         <header>
+                <h3>{{title}}</h3>
+         </header>
+    </template>
+    <template id="parent">
+        <div>
+            <h3>父组件parent---</h3>
+            <h3>父组件的count--{{count}}</h3>
+            <h3>父组件的msg--{{msg}}</h3>
+            <h3>父组件里面的props参数--{{idx}}--{{dataId}}--{{myWord}}</h3>
+            <p>
+                <input type="text" v-model="msg">
+            </p>
+            <div >
+                <p class="op" v-show="show">子组件控制我的显隐</p>
+            </div>
+            <hr>
+           <childone 
+            :count="count" 
+            :msg="msg"
+             :show="show"
+             v-on:changecount="handlechange"
+             :changeshow="changeshow"
+             :handlechange="handlechange"
+             @changemsg="handlechangeMsg">
+              
+           </childone>
+        </div>
+    </template>
+    <template id="childone">
+        <div>
+            <h3>子组件childone--</h3>
+            <h3>子组件childone--  {{count}}--{{msg}}</h3>
+            <button @click="changepcount">子组件修改父组件count</button>
+            <button @click="changepmsg">子组件修改父组件msg</button>
+            <button @click="changebyparent">$parent去修改父组件的msg</button>
+
+            <button @click="change">子组件控制父组件{{show?'显示':'隐藏'}}</button>
+        </div>
+    </template>
+</body>
+
+<script src="../../js/vue.js"></script>
+<script>
+    const Head=Vue.extend({
+        template:"#myhead",
+        data(){
+            return{
+                title:"组件head的标题"
+            }
+        }
+    })
+    Vue.component("my-head",Head);
+    //父组件
+    Vue.component("parent",{
+        template:"#parent",
+        methods:{
+            //通过父组件的自定义事件来传递给子组件
+            handlechange(count){
+                console.log(count);
+                this.count+=count
+            },
+            //将子组件传递过来的msg赋予给父组件
+            handlechangeMsg(msg){
+                this.msg=msg;
+            },
+            changeshow(show){
+                this.show=show
+            }
+        },
+
+        data(){
+            return{
+                show:true,
+                msg:"父组件的word",
+                count:1000
+            }
+        },
+        //效验
+        props:{
+            idx:String,
+            dataId:{
+                type:Number,
+                default:1000
+            },
+            myWord:{
+                type:String
+            }
+        }
+    })
+    Vue.component("childone",{
+        template:"#childone",
+        props:["msg","show","count","handlechange","changeshow"],
+        methods:{
+            change(){
+                this.changeshow(!this.show)
+            },
+            changepcount(){
+                //将事件传递给父组件
+                this.$emit("changecount",80);
+            },
+            changepmsg(){
+                this.$emit("changemsg","改变完了后的word")
+            },
+
+            changebyparent(){
+                var data=new Date();
+                this.$parent.msg="通过parent改变父组件的msg"+data.getTime();
+                this.$parent.handlechangeMsg(555);
+            }
+        },
+        mounted(){
+            console.log(this.$parent)
+        }
+    })
+
+
+
+    const app =new Vue({
+        data:{
+            title:"vue组件通信 子组件访问父组件",
+            word:"实例app里面的word"
+        },
+        mounted(){
+            document.getElementsByTagName("title")[0].innerHTML=this.title;
+        }
+
+    }).$mount("#app");
+</script>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<h3>{{title}}</h3>
+			<p>{{msg}}</p>
+			<button @click="changeMsg">点击修改msg</button>
+			<hr />
+			<div >
+				<h3>vue实现注册</h3>
+				<p>
+					<input type="text" placeholder="请输入用户名"  id="username" v-model="userinfo.username"/>
+				</p>
+				<p>
+					<input type="text" placeholder="请输入手机号"  id="mobile" v-model="userinfo.mobile"/>
+				</p>
+				
+				<p>
+					<input type="password" placeholder="请输入密码.."  id="pwd"  v-model="userinfo.pwd"/>
+				</p>
+				
+				<p>
+					<input type="password" placeholder="请确认密码.." id="dbpwd"  v-model="userinfo.dbpwd"/>
+				</p>
+				
+				<button @click="toRegister">点击注册</button>
+				
+			</div>
+		</div>
+	</body>
+	<!--
+		  ajax  $.ajax 
+        $.ajax
+        $.get
+        $.post
+        $.delete
+        $.load
+        $.put 
+
+
+        $.ajax({
+            url,
+            type,
+            data,
+            dataType,
+            beforeSend, 
+            headers,
+            timeout,
+            success
+        }).then()
+        .finally()
+        .complete()
+        .error()
+
+
+
+
+        axios 
+        vue-resource
+        fetch
+        
+	-->
+	<script src="../js/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+	
+	<script>
+		const app =new Vue({
+			
+			data:{
+				title:"ajax  实现数据请求",
+				msg:"vue 里面使用ajax",
+				userinfo:{
+					
+				}
+			},
+			
+			methods:{
+				//改变消息
+				changeMsg(){
+					$.get("http://localhost:1234/vue/index",
+					{
+						id:666
+					}).then(res=>{
+						console.log(res);
+						this.msg=res;
+					})
+				},
+				//注册方法
+				toRegister(){
+//					$.ajax({
+//						type:"post",
+//						url:"http://localhost:1234/vue/register",
+//						async:true,
+//						data:this.userinfo,
+//						success(res){
+//							console.log(res);
+//						}
+//					});
+					$.post("http://localhost:1234/vue/register",this.userinfo).then(res=>{
+						console.log(res);
+					})
+				}
+			},
+			mounted(){
+				document.getElementsByTagName("title")[0].innerHTML=this.title;
+			}			
+		}).$mount("#app");
+		
+		
+		//ajax请求get方式    http://localhost:1234/index?id=1234   data就是他的 Params
+		$.ajax({
+			type:"get",
+			url:"http://localhost:1234/index",
+			async:true,	
+			data:{
+				id:1234
+			},
+			success(res){
+				console.log(res);
+			}
+		});
+	</script>
+</html>

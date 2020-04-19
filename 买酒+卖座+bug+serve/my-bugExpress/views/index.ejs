@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%-  include  common%>
+</head>
+
+<body>
+ <div>
+    <%- include('head',{title:'home'})%>
+
+  <h2 class="text-success"><%- msg%></h2>
+ 
+</div>
+
+ <% if(username){ %>
+  <h3 class="text-success">欢迎登陆 : <%- username %></h3>
+  <button type="button" class="btn btn-primary" onclick="location.href='/buglist'">进入主页</button>
+  <button type="button" class="btn btn-danger" onclick="location.href='/logout'">注销 </button>
+
+    <% }else{  %>
+      <h3 class="text-danger">你还未登录,请登陆....</h3>
+      <button type="button" class="btn btn-success" onclick="location.href='/login'">登录</button>
+      <button type="button" class="btn btn-info" onclick="location.href='/register'"> 注册 </button>
+ <% }%>
+
+      <%- include foot%>
+</body>
+
+</html>
+<script>
+  //判断响应的token是否存在 前端 通过 ajax 把 token 加入 请求头 (req.headers) 发送到 后端 后端进行匹配校验 看是否正确 
+    $.ajax({
+     url:"/sendToken",
+     success(res){
+      //  console.log(res);
+       if(res.token){
+          sessionStorage.token = res.token;
+       }else{
+          sessionStorage.token = "";
+       }
+     }
+  })
+</script>

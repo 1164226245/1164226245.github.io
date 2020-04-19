@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            display: flex;
+            width: 90%;
+
+        }
+        .left{
+            width: 100px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            /* 竖向排列 */
+            flex-direction: column;  
+            color: hotpink;
+            border: 2px  dashed hotpink;
+        }
+        .right{
+            flex: 1;
+            margin-left:20px;
+            border: 3px dashed  chartreuse;
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <my-head></my-head>
+
+        <!-- 路由出口 -->
+        <router-view style="border: 2px solid red; width: 80%;">
+
+        </router-view>
+
+    </div>
+    <template id="my-head">
+        <div>
+            <h3>{{title}}</h3>
+        </div>
+    </template>
+
+
+    <!-- layout组件  主路由组件 -->
+    <template id="layout">
+        <div>
+            <h3>主页--主路由 --胡育林的公司管理系统</h3>
+            <div class="nav">
+                <router-link :to="{name:'going'}">员工管理</router-link>
+                <router-link :to="{name:'income'}">资产管理</router-link>
+                <router-link :to="{name:'overtime'}">考情管理</router-link>
+            </div>
+
+            <div>
+                <router-view style="border: 2px solid red; width: 80%;">
+                </router-view>
+            </div>
+
+        </div>
+    </template>
+    <!-- 员工管理组件 -->
+    <template id="emper">
+        <div>
+            <h3>二级子路由员工管理页面 --emper</h3>
+            <div class="wrapper">
+                <div class="left">
+                    <router-link :to="{name:'going'}">员工入职</router-link>
+                    <router-link :to="{name:'outing'}">员工离职</router-link>
+                </div>
+                <div class="right">
+                    <router-view style="border: 2px solid green; width: 80%;">
+                    </router-view>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- 资产管理组件 -->
+    <template id="money">
+        <div>
+            <h3>二级子路由资产管理页面 --money</h3>
+            <div class="wrapper">
+                    <div class="left">
+                        <router-link :to="{name:'income'}">公司收入</router-link>
+                        <router-link :to="{name:'expend'}">公司支出</router-link>
+                    </div>
+                    <div class="right">
+                        <router-view style="border: 2px solid rgb(107, 0, 128); width: 80%;">
+                        </router-view>
+                    </div>
+                </div>
+        </div>
+    </template>
+    <!-- 考情管理组件 -->
+    <template id="oa">
+        <div>
+            <h3>二级子路由考勤管理页面 --oa</h3>
+            <div class="wrapper">
+                    <div class="left">
+                        <router-link :to="{name:'absence'}">员工缺勤</router-link>
+                        <router-link :to="{name:'overtime'}">员工加班</router-link>
+                    </div>
+                    <div class="right">
+                        <router-view style="border: 2px solid rgb(187, 130, 65); width: 80%;">
+                        </router-view>
+                    </div>
+                </div>
+        </div>
+    </template>
+
+</body>
+<script src="../../js/vue.js"></script>
+<script src="../../js/vue-router.min.js"></script>
+<script>
+
+    const Head = Vue.extend({
+        template: "#my-head",
+        data() {
+            return {
+                title: "头部组件"
+            }
+        }
+    });
+
+    Vue.component("my-head", Head);
+
+    //定义路由选项  主路由  layout
+    const Layout = {
+        template: '#layout'
+    }
+    //子路由模板  员工系统
+    const Emper = {
+        template: "#emper"
+    }
+    //子路由模块  资产系统
+    const Money = {
+        template: "#money"
+    }
+    //子路由模板   考情管理
+    const Oa = {
+        template: "#oa"
+    }
+    //设置路由别名
+    const routes = [{
+        path: '/layout',
+        component: Layout,
+        name: 'layout',
+        //二级子路由
+        children: [
+            //重定向到员工管理
+            {
+                path: " ",
+                redirect: {
+                    name: 'going'
+                }
+            },
+            //员工管理
+            {
+                path: 'emper',
+                name: 'emper',  //路由别名
+                component: Emper,
+                //员工管理三级路由
+                children:[
+                    //员工入职
+                   {
+                       path:'going',
+                       name:"going",
+                      component:{
+                        template:"<h3 >员工入职手续办理</h3>",
+                      },
+                     
+                   },
+                   //员工离职
+                   {
+                       path:'outing',
+                    component:{template:"<h3>员工离职手续办理</h3>"},
+                       name:"outing"
+                   }
+                ]
+            },
+            //资金管理
+            {
+                path: 'money',
+                name: 'money',
+                component: Money,
+                //三级路由
+                children:[
+                     //收入
+                   {
+                       path:'income',
+                       name:"income",
+                      component:{
+                        template:"<h3 >公司入账流水</h3>",
+                      },
+                     
+                   },
+                   //支出
+                   {
+                       path:'expend',
+                    component:{template:"<h3>公司开销流水</h3>"},
+                       name:"expend"
+                   }
+                ]
+            },
+
+            //考情管理
+
+            {
+                path: 'oa',
+                name: 'oa',
+                component: Oa,
+                //三级路由
+                children:[
+                      //缺勤
+                   {
+                       path:'absence',
+                       name:"absence",
+                      component:{
+                        template:"<h3 >员工缺勤操作</h3>",
+                      },
+                     
+                   },
+                   //加班
+                   {
+                       path:'overtime',
+                    component:{template:"<h3>员工加班操作</h3>"},
+                       name:"overtime"
+                   }
+                ]
+            }
+            ,{
+                path: "*",
+                redirect: { name: 'going' }
+            }
+        ]
+    },
+    // //外层从定向 到员工页面
+        {
+            path: "*",
+            redirect: { name: 'going' }
+        }
+    ]
+    //定义路由对象
+    const router = new VueRouter(
+        {
+            routes,
+            mode: "hash"
+        }
+    )
+
+    //挂载
+    const app = new Vue({
+        data: {
+            title: "vue路由配置 PC端路由之间的嵌套设置"
+        },
+        router,
+        mounted() {
+            document.getElementsByTagName("title")[0].innerHTML = this.title;
+        }
+    }).$mount("#app");
+</script>
+
+</html>

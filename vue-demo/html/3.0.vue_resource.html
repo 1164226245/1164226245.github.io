@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<h3>{{title}}</h3>
+			<p>{{msg}}</p>
+			<p v-for="(m,i) in mv">
+			{{i}}---{{m.title}}--{{m.year}}
+			</p>
+			<button @click="changeMsg">点击显示电影列表</button>
+			<hr />
+			<div >
+				<h3>vue实现注册</h3>
+				<p>
+					<input type="text" placeholder="请输入用户名"  id="username" v-model="userinfo.username"/>
+				</p>
+				<p>
+					<input type="text" placeholder="请输入手机号"  id="mobile" v-model="userinfo.mobile"/>
+				</p>
+				
+				<p>
+					<input type="password" placeholder="请输入密码.."  id="pwd"  v-model="userinfo.pwd"/>
+				</p>
+				
+				<p>
+					<input type="password" placeholder="请确认密码.." id="dbpwd"  v-model="userinfo.dbpwd"/>
+				</p>
+				
+				<button @click="toRegister">点击注册</button>
+				
+			</div>
+		</div>
+	</body>
+	<!--
+		
+		 // 基于全局Vue对象使用http
+        Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
+        Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+
+        // 在一个Vue实例内使用$http  实例属性  
+        this.$http.get('/someUrl', [options]).then(successCallback, errorCallback);
+        this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+        vue-resource
+        get(url, [options])
+        head(url, [options])
+        delete(url, [options])
+        jsonp(url, [options])
+        post(url, [body], [options])
+        put(url, [body], [options])
+        patch(url, [body], [options])
+
+        Vue.http({
+            url,
+            method,
+            body,  // request body 
+            params, // 请求的URL参数对象
+            headers, 
+            timeout,
+            before
+        }).then(successCallback,errorCallback)
+
+
+        fetch
+    
+     -->
+        
+	<script src="../js/vue.js"></script>
+	<!--<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>-->
+	<!--<script src="../js/axios.min.js"></script>-->
+	<script src="../js/vue-resource.min.js"></script>
+	
+	<script>
+		
+		const app =new Vue({
+			
+			data:{
+				title:"vue-resource 实现数据请求",
+				msg:"vue 里面使用vue-resource",
+				userinfo:{
+					
+				},
+				mv:[]
+				
+			},
+			
+			methods:{
+				//改变消息
+				changeMsg(){
+//					$.get("http://localhost:1234/vue/index",
+//					{
+//						id:666
+//					}).then(res=>{
+//						console.log(res);
+//						this.msg=res;
+//					})
+//					axios.get("/vue/index",{
+//						  params:{id:676}}).then(res=>{
+//					console.log(res);
+//					this.msg=res.data;
+
+					//电影显示
+					//http://localhost:1234/vue/movie
+//					Vue.http({
+//						url:"http://localhost:1234/vue/movie",
+//							method:"get",
+//						body:this.mv,
+//						params:{
+//							id:909
+//						}
+//						
+//						
+//					}).then(res=>{
+//						console.log(res);
+//						this.mv=res.data.result;
+//					})
+					//
+					this.$http.get("http://localhost:1234/vue/movie",{
+						
+						params:{
+							limit:9
+						}
+					}).then(res=>{
+						console.log(res);
+						this.mv=res.data.result;
+					})
+					
+					
+					
+				},
+				//注册方法
+				toRegister(){
+					
+//					$.ajax({
+//						type:"post",
+//						url:"http://localhost:1234/vue/register",
+//						async:true,
+//						data:this.userinfo,
+//						success(res){
+//							console.log(res);
+//						}
+//					});
+//					$.post("http://localhost:1234/vue/register",this.userinfo).then(res=>{
+//						console.log(res);
+//					})
+
+//					axios({
+//						url:"vue/register",
+//						method:"POST",
+//						params:{
+//							id:1234
+//						},
+//						data:this.userinfo,
+//						
+//					}).then(res=>{
+//						console.log(res);
+//					})
+
+					// axios.post(url[, data[, config]])
+//					axios.post("/vue/register",this.userinfo).then(res=>{
+//						console.log(res);
+//					})
+					
+					//this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+					
+					this.$http.post("http://localhost:1234/vue/register",this.userinfo)
+					.then(res=>{
+						console.log(res);
+						this.userInfo={};
+					})
+				   
+				}
+			},
+			mounted(){
+				document.getElementsByTagName("title")[0].innerHTML=this.title;
+			}			
+		}).$mount("#app");
+		
+		
+		//ajax请求get方式    http://localhost:1234/index?id=1234   data就是他的 Params
+//		$.ajax({
+//			type:"get",
+//			url:"http://localhost:1234/index",
+//			async:true,	
+//			data:{
+//				id:1234
+//			},
+//			success(res){
+//				console.log(res);
+//			}
+//		});
+//		axios({			
+//			url:"/index",
+//			method:"get",
+//			params:{
+//				id:1234
+//			}
+//		}).then(res=>{
+//			console.log(res);
+//		}).catch(err=>{
+//			console.log(err);
+//		})
+		Vue.http({
+			url:"http://localhost:1234/index",
+			method:"GET",
+			params:{
+				id:9567
+			},	
+		}).then(res=>{
+			console.log(res);
+		},err=>{
+			console.log(err);
+		})
+      
+		
+	</script>
+</html>

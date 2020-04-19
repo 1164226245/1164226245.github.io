@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的BUG列表页</title>
+    <%- include common%>
+    <style type="text/css">
+        html,
+        body,
+        table {
+            width: 100%;
+        }
+
+        .box {
+            width: 100%;
+        }
+
+        .td-img img {
+            width: 100%;
+        }
+
+        .xheLayout {
+            width: 570px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <%- include('head',{title:'buglist'})%>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <hr class="text-danger" style="border: 3px solid;">
+                    <div class="form-group">
+                        <h4 class="text-success">请选择每页条数</h4>
+                        <select onchange="changePageCount()" id="selectCount" class="form-control" style="width:15%;">
+                            <option value="">请选择</option>
+                            <option value="4">每页4 条</option>
+                            <option value="8">每页8 条</option>
+                            <option value="10">每页10 条</option>
+                            <option value="15">每页15 条</option>
+                        </select>
+                    </div>
+                    <!-- BUG分类 -->
+                    <div class="form-group">
+                        <h4 class="text-success">请选择BUG类型</h4>
+                        <select onChange="selectBug()" id="selectBug" class="form-control" style="width:15%;">
+                            <option value="">请选择</option>
+                            <%    mv.forEach((m,i)=>{  %>
+                            <option value="<%- m.id %>"> <%- m.title%></option>
+                            <%    })   %>
+                        </select>
+                    </div>
+                    <!-- BUg分类  e-->
+                </div>
+            </div>
+            <div>
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered  table-striped box">
+                            <caption class="h2  text-primary">
+                                <!-- <hr class="text-danger" style="border: 3px solid;"> -->
+                            </caption>
+                            <tr class="text-center text-danger">
+                                <td>序号</td>
+                                <td>你的BUG分类</td>
+                                <!-- <td>BUG截图</td> -->
+                                <td>BUG标题</td>
+                                <td>详细内容</td>
+                                <td>提交人</td>
+                                <td>提交时间</td>
+                                <td>操作1</td>
+                                <td>操作2</td>
+                            </tr>
+
+
+                            <%   if (result.length>0){ %>
+                            <%      result.map((item,index)=>{ %>
+                            <tr>
+                                <td> <%- index +1 %></td>
+                                <td><a href="/comment/mybugdetail?mid=<%-item.mid %>"><%- item.mtitle  %></a></td>
+                                <!-- <td><img src="<%- item.mpic%>" alt="" width="80" height="80"></td> -->
+                                <td> <a href="/comment/detail?cid=<%-item.cid %>"> <%- item.title  %></a> </td>
+                                <td style="width:15%" class="text-left text-success td-img">
+                                    <%- item.content  %>
+                                </td>
+                                <td><a href="/comment/my?uid=<%-item.uid %>"><%- item.uname %></a> </td>
+                                <td><%-  dateFormat(item.time) %></td>
+
+                                <td>
+                                    <%    if(item.uname==username){ %>
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#updateBox" data-item='<%-JSON.stringify(item)%>'
+                                        onclick="getobj(this)">更新</button>
+                                    <%    }else{ %>
+                                    <button type="button" class="btn btn-danger " disabled>无权限</button>
+                                    <%     }  %>
+                                </td>
+
+
+
+                                <!-- 删除处理  如果只能让当前用户删除自己的数据  不能删除其他用户的数据 -->
+                                <td>
+                                    <%    if(item.uname==username){ %>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#delBox" onclick="getItem(this)"
+                                        data-item='<%-JSON.stringify(item)%>''>删除</button>
+                                        <%    }else{ %>
+                                        <button type="button" class="btn btn-danger " disabled>无权限</button>
+                                        <%     }  %>
+                                </td>
+                            </tr>
+                            <%   }) %>
+
+
+
+                            <tr>
+                                <td colspan="9">
+                                    <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#delBox" onclick="getNewId(-1)">删除所有</button>
+                                    <button class="btn btn-danger pull-left" onclick="history.go(-1)">返回</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="9">
+                                    <!-- 分页组件  s -->
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination">
+                                            <li class="<%- pageNo-1<1?'disabled':'' %>">
+                                                <a href="/comment/mlist?pageNo=<%- pageNo-1 %>" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="<%- pageNo-2<1?'disabled':'' %>">
+                                                <a href="/comment/mlist?pageNo=<%- pageNo-2  %>"><%- pageNo -2 %></a>
+                                            </li>
+                                            <li class="<%- pageNo-1<1?'disabled':'' %>">
+                                                <a href="/comment/mlist?pageNo=<%- pageNo-1  %>"><%- pageNo -1 %></a>
+                                            </li>
+                                            <li><a href="/comment/mlist?pageNo=<%- pageNo %>"><%- pageNo%></a></li>
+                                            <li class="<%- pageNo+1>totalPage?'disabled':'' %>">
+                                                <a href="/comment/mlist?pageNo=<%- pageNo+1  %>">
+                                                    <%- pageNo +1 %>
+                                                </a>
+                                            </li>
+                                            <li class="<%- pageNo+2>totalPage?'disabled':'' %>">
+                                                <a href="/comment/mlist?pageNo=<%- pageNo+2 %>">
+                                                    <%- pageNo +2 %>
+                                                </a>
+                                            </li>
+                                            <li class="<%- pageNo+1>totalPage?'disabled':'' %>">
+                                                <a href="/comment/mlist?pageNo=<%- pageNo+1 %>" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li>
+                                                共 <%- total%> 条数据 / 第 <%- pageNo%> 页
+                                            </li>
+                                            <li>
+                                                共 <%- totalPage %> 页 / 每页 <%- pageSize%> 条
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- 分页组件  结束 -->
+                                </td>
+                            </tr>
+                            <!-- 暂无评论数据 -->
+                            <%     }else{ %>
+                            <tr >
+                                <td colspan="9" class="text-center bg-warning text-primary">暂无相关记录bug...</td>
+                            </tr>
+                            <%  } %>
+
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 引入bootst模态框  s   删除组件-->
+            <div class="modal fade" tabindex="-1" role="dialog"  id="delBox">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title  text-danger">删除警告--</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>你确定要删除吗&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                          <button type="button" class="btn btn-primary" onclick="todoDel()">删除</button>
+                        </div>
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+             <!-- 引入bootst模态框  e -->
+
+              <!-- 引入bootst模态框  s   更新组件-->
+            <div class="modal fade" tabindex="-1" role="dialog"  id="updateBox">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title  text-danger">更新BUG--</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>评论人 :<span id="someone"></span></h4>
+                                <div class="form-group">
+                                        <label for="title">标题:</label>
+                                        <input name="title"  type="text" class="form-control" id="title" placeholder="请输入标题">
+                                    </div>
+                                    <div class="form-group f1">
+                                        <label for="content">内容:</label>
+                                        <textarea name="content" class="form-control" id="content" cols="30" rows="15" placeholder="请输入内容"></textarea>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                          <button type="button" class="btn btn-primary" onclick="toupdate()">确定</button>
+                        </div>
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+             <!-- 引入bootst模态框  e -->
+        </div>
+    </div>
+    <%- include foot%>
+</body>
+<script>
+    window.onload = function () {
+        // console.log(location);
+
+        var query = location.search.split("?")[1];
+
+        // console.log(query);  //拿到问号后面参数的集合
+        if (query != undefined) {
+            var key = query.split("=")[0];
+            var value = query.split("=")[1];
+        }
+
+
+
+        if (key == "mid") {
+            $("#selectBug").val(value);
+        } else if (key == "pageSize") {
+            $("#selectCount").val(value);
+        }
+        $(".xheLayout").css(({ "width": "570px", "height": "150px" }))
+    }
+
+    function changePageCount() {
+        var count = $("#selectCount").val();
+        // console.log(count)
+        location.href = "/comment/mlist?pageSize=" + count;
+    }
+
+    function selectBug() {
+        var mid = $("#selectBug").val();
+        // console.log(mid);
+        location.href = "/comment/mlist?mid=" + mid;
+    }
+    var obj = null;
+    var id = null;
+    //单删的时候找到指定id进行单个删除
+    function getItem(that) {
+
+        var item = JSON.parse($(that).attr("data-item"));
+
+        obj = item;
+
+        id = obj._id;
+
+        // console.log(id);
+    }
+    //多删时候直接让其全部删掉
+    function getNewId(xid) {
+        id = xid;
+    }
+
+
+    //删除  ajax请求函数
+    function todoDel() {
+        $.ajax({
+            url: "/comment/delComment",
+            method: "POST",
+            data: {
+                _id: id
+            },
+            success(res) {
+                $("#delBox").modal("toggle");
+                window.location.reload();
+            }
+        })
+    }
+    //更新
+    function getobj(that) {
+        obj = JSON.parse($(that).attr("data-item"));
+        // console.log(obj.name);
+        $("#someone").text(obj.uname);
+        $("#title").val(obj.title);
+        $("#content").val(obj.content);
+    }
+
+    //更新 ajax请求函数
+    function toupdate() {
+        $.ajax({
+            url: "/comment/updateComment",
+            method: "POST",
+            data: {
+                _id: obj._id,
+                title: $("#title").val(),
+                content: $("#content").val()
+
+            },
+            success(res) {
+                $("#updateBox").modal("toggle");
+                window.location.reload();
+            }
+        })
+    }
+
+
+    //文件上传
+    $(pageInit);
+    //  comment.ejs  /comment/index
+    function pageInit() {
+        $.extend(XHEDITOR.settings, { shortcuts: { "ctrl+enter": submitForm } });
+        // $("#ele").xheditor();
+        $("#content").xheditor({   //初始化 富文件编辑框
+            html5Upload: false,
+            upMultiple: "1",
+
+            upLinkRrl: "upload.html",
+            upLinkExt: "zip,rar,txt",
+
+            upImgUrl: "/comment/uploadImg",   // 图片上传的服务器  
+            upImgExt: "jpg,jpeg,gif,png",
+
+            upFlashUrl: "upload.php",
+            upFlashExt: "swf",
+
+            upMediaUrl: "upload.php",
+            upMediaExt: "wmv,avi,wma,mp3,mid"
+
+        });
+    };
+
+    function insertUpload(arrMsg) {
+        console.log(arrMsg);
+        var i, msg;
+        for (var i = 0; i < arrMsg.length; i++) {
+            msg = arrMsg[i];
+            console.log(msg);
+            $("#uploadList").append(' <option value="' + msg.id + '">' + msg.localname + '</option>')
+        }
+    };
+
+    function submitForm() {
+        $("#frmDemo").submit();
+    }
+
+</script>
+
+</html>
